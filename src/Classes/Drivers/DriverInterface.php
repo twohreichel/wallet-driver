@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace TWOH\WalletDriver\Drivers;
 
-use TWOH\WalletDriver\Queries\QueryInterface;
+use TWOH\WalletDriver\Models\Account;
 
 interface DriverInterface
 {
-    public function connect(): QueryInterface;
+    public function buildWallet(): string;
 
-    public function test(): bool;
+    public function connect(): Account;
+
+    public function setAccount(Account $account): void;
+
+    public function getAccount(): Account;
 }

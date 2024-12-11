@@ -2,32 +2,43 @@
 
 declare(strict_types=1);
 
-use TWOH\WalletDriver\Models\Configuration;
-use TWOH\WalletDriver\Services\DatabaseDriverService;
+use TWOH\Logger\Utilities\LogDirectoryUtility;
+use TWOH\WalletDriver\Exceptions\ValidationFailedException;
+use TWOH\WalletDriver\Models\Account;
+use TWOH\WalletDriver\Services\WalletDriverService;
 use Dotenv\Dotenv;
+use TWOH\Logger\Traits\LoggerTrait;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// load .env file
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+new cli();
 
-$query = (new DatabaseDriverService(
-    new Configuration(
-        'mongodb',
-        $_ENV['DB_USERNAME'],
-        $_ENV['DB_PASSWORD'],
-        (int)$_ENV['DB_PORT'],
-        $_ENV['DB_DATABASE']
-    ),
-    'MongoDbDriver'
-))->__invoke();
+class cli
+{
+    use LoggerTrait;
 
-$query->insertOne(
-    'test',
-    [
-        'name' => 'John Doe',
-        'age' => 42,
-        'email' => 'j.doe@example.org'
-    ]
-);
+    public function __construct()
+    {
+        LogDirectoryUtility::$logDirectory = __DIR__ . '/../logs/';
+
+        // load .env file
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+        $dotenv->load();
+
+        try {
+            $wallet = (new WalletDriverService(
+                new Account(
+                    $_ENV['HOST'],
+                    $_ENV['USERNAME'],
+                    $_ENV['PASSWORD'],
+                    $_ENV['DRIVER']
+                )
+            ))->__invoke();
+        } catch (ReflectionException|ValidationFailedException $e) {
+            $this->error($e->getMessage());
+        }
+    }
+}
+
+
+

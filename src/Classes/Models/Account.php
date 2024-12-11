@@ -4,53 +4,56 @@ declare(strict_types=1);
 
 namespace TWOH\WalletDriver\Models;
 
-class Configuration implements ConfigurationInterface
+class Account
 {
     /**
+     * @NotEmpty
+     * @IsMail
      * @var string $username The variable that holds the username value.
      */
     protected string $username = '';
 
     /**
+     * @NotEmpty
+     * @StrengthPassword
      * @var string $password The variable that holds the password value.
      */
     protected string $password = '';
 
     /**
+     * @NotEmpty
      * @var string $host The variable that holds the host value.
      */
     protected string $host = '';
 
     /**
-     * @var int $port The variable that holds the port number.
+     * @NotEmpty
+     * @var string $driver The variable that holds the driver that need to be called for wallet generation.
      */
-    protected int $port = 0;
+    protected string $driver = '';
 
     /**
-     * @var string $database The variable that holds the name of the database.
+     * @var Connection $connection The variable that holds the connection of the account.
      */
-    protected string $database = '';
+    protected Connection $connection;
 
     /**
      * @param string $host
      * @param string $username
      * @param string $password
-     * @param int $port
-     * @param string $database
+     * @param string $driver
      */
     public function __construct(
         string $host,
         string $username,
         string $password,
-        int $port,
-        string $database,
+        string $driver
     )
     {
         $this->setHost($host);
         $this->setUsername($username);
         $this->setPassword($password);
-        $this->setPort($port);
-        $this->setDatabase($database);
+        $this->setDriver($driver);
     }
 
     public function getUsername(): string
@@ -83,23 +86,23 @@ class Configuration implements ConfigurationInterface
         $this->host = $host;
     }
 
-    public function getPort(): int
+    public function getDriver(): string
     {
-        return $this->port;
+        return $this->driver;
     }
 
-    public function setPort(int $port): void
+    public function setDriver(string $driver): void
     {
-        $this->port = $port;
+        $this->driver = $driver;
     }
 
-    public function getDatabase(): string
+    public function getConnection(): Connection
     {
-        return $this->database;
+        return $this->connection;
     }
 
-    public function setDatabase(string $database): void
+    public function setConnection(Connection $connection): void
     {
-        $this->database = $database;
+        $this->connection = $connection;
     }
 }

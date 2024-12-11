@@ -51,19 +51,43 @@ docker-compose up -d --build
 
 #### Setup Connection
 ```php
-use TWOH\WalletDriver\Models\Configuration;
-use TWOH\WalletDriver\Services\DatabaseDriverService;
+<?php
 
-$query = (new DatabaseDriverService(
-    new Configuration(
-        'mongodb',
-        $_ENV['DB_USERNAME'],
-        $_ENV['DB_PASSWORD'],
-        (int)$_ENV['DB_PORT'],
-        $_ENV['DB_DATABASE']
-    ),
-    'MongoDbDriver'
-))->__invoke();
+declare(strict_types=1);
+
+use TWOH\Logger\Utilities\LogDirectoryUtility;
+use TWOH\WalletDriver\Exceptions\ValidationFailedException;
+use TWOH\WalletDriver\Models\Account;
+use TWOH\WalletDriver\Services\WalletDriverService;
+use Dotenv\Dotenv;
+use TWOH\Logger\Traits\LoggerTrait;
+
+class cli
+{
+    use LoggerTrait;
+    
+    public function __construct()
+    {
+        LogDirectoryUtility::$logDirectory = __DIR__ . '/../logs/';
+
+        // load .env file
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+        $dotenv->load();
+
+        try {
+            $wallet = (new WalletDriverService(
+                new Account(
+                    $_ENV['HOST'],
+                    $_ENV['USERNAME'],
+                    $_ENV['PASSWORD'],
+                    $_ENV['DRIVER']
+                )
+            ))->__invoke();
+        } catch (ReflectionException|ValidationFailedException $e) {
+            $this->error($e->getMessage());
+        }
+    }
+}
 ```
 
 ---
@@ -74,18 +98,3 @@ To verify that the tests are passing, run the following command:
 ```shell
 vendor/bin/phpunit
 ```
-
----
-
-#### Logging
-This project uses its own `LoggerTrait` class. You can integrate it into your classes to log messages as follows:
-
-```php
-use LoggerTrait;
-
-$this->info('Your message here');
-$this->warning('Your message here');
-$this->error('Your message here');
-```
-
-The log files will be stored in the `logs` folder.
