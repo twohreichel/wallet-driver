@@ -10,6 +10,7 @@ use TWOH\Logger\Traits\LoggerTrait;
 use TWOH\Logger\Traits\OutputTrait;
 use TWOH\WalletDriver\Exceptions\ValidationFailedException;
 use TWOH\WalletDriver\Models\Account;
+use TWOH\WalletDriver\Models\Wallet;
 
 final class WalletDriverService
 {
@@ -27,17 +28,24 @@ final class WalletDriverService
     private Account $account;
 
     /**
+     * @var Wallet
+     */
+    private Wallet $wallet;
+
+    /**
      * @var string
      */
     private const string NAMESPACE_PREFIX = 'TWOH\\WalletDriver\\Drivers\\';
 
     /**
      * @param Account $account
+     * @param Wallet $wallet
      * @throws ValidationFailedException
      * @throws \ReflectionException
      */
     public function __construct(
-        Account $account
+        Account $account,
+        Wallet $wallet
     )
     {
         $validator = new UserValidator();
@@ -53,6 +61,7 @@ final class WalletDriverService
         /** @var DriverInterface $driver */
         $this->driver = (new $fullyQualifiedClassName());
         $this->driver->setAccount($account);
+        $this->driver->setWallet($wallet);
     }
 
     /**

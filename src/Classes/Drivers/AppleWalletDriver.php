@@ -6,6 +6,7 @@ namespace TWOH\WalletDriver\Drivers;
 
 use TWOH\WalletDriver\Models\Account;
 use TWOH\WalletDriver\Models\Connection;
+use TWOH\WalletDriver\Models\Wallet;
 
 class AppleWalletDriver implements DriverInterface
 {
@@ -14,6 +15,14 @@ class AppleWalletDriver implements DriverInterface
      */
     protected Account $account;
 
+    /**
+     * @var Wallet
+     */
+    protected Wallet $wallet;
+
+    /**
+     * @return string
+     */
     public function buildWallet(): string
     {
         $this->connect();
@@ -21,6 +30,9 @@ class AppleWalletDriver implements DriverInterface
         return 'Apple Wallet';
     }
 
+    /**
+     * @return Account
+     */
     public function connect(): Account
     {
         $account = $this->getAccount();
@@ -46,5 +58,22 @@ class AppleWalletDriver implements DriverInterface
     public function getAccount(): Account
     {
         return $this->account;
+    }
+
+    /**
+     * @param Wallet $wallet
+     * @return void
+     */
+    public function setWallet(Wallet $wallet): void
+    {
+        $this->wallet = $wallet;
+    }
+
+    /**
+     * @return Wallet
+     */
+    public function getWallet(): Wallet
+    {
+        return $this->wallet;
     }
 }

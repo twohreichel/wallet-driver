@@ -4,31 +4,162 @@ declare(strict_types=1);
 
 namespace TWOH\WalletDriver\Drivers;
 
+use Google\Client;
+use Google\Exception;
+use Google\Service\Walletobjects;
+use Google\Service\Walletobjects\LoyaltyClass;
+use Google\Service\Walletobjects\LoyaltyObject;
+use TWOH\Logger\Traits\LoggerTrait;
+use TWOH\WalletDriver\Exceptions\JWTTokenException;
 use TWOH\WalletDriver\Models\Account;
+use TWOH\WalletDriver\Models\ClientConfig;
 use TWOH\WalletDriver\Models\Connection;
+use TWOH\WalletDriver\Models\Wallet;
+use TWOH\WalletDriver\Services\JWTService;
 
 class GoogleWalletDriver implements DriverInterface
 {
+    use LoggerTrait;
+
     /**
      * @var Account
      */
     protected Account $account;
 
+    /**
+     * @var Wallet
+     */
+    protected Wallet $wallet;
+
+    /**
+     * Returns a link that allows the end user to add the card directly to their Google Wallet
+     *
+     * @return string
+     * @throws Exception
+     */
     public function buildWallet(): string
     {
         $this->connect();
 
-        return 'Google Wallet';
+        $walletService = $this->createWalletObject();
+
+        $loyaltyClass = $this->createLoyaltyClass($walletService);
+        if (!is_null($loyaltyClass)) {
+            $loyaltyObject = $this->createLoyaltyObject($walletService);
+            if (!is_null($loyaltyObject)) {
+                try {
+                    return (new JWTService())->generateGoogleLinkToAddWalletToDevice(
+                        $this->getAccount(),
+                        $this->getWallet()
+                    );
+                } catch (JWTTokenException $e) {
+                    $this->error($e->getMessage());
+                }
+            }
+        }
+
+        return '';
     }
 
+    /**
+     * @return Account
+     * @throws Exception
+     */
     public function connect(): Account
     {
+        // get account informations
         $account = $this->getAccount();
+
+        // create google client
+        $client = new Client();
+        $client->setApplicationName($account->getApplicationName());
+        $client->setAuthConfig($account->getAuthConfig()); // JSON-Datei
+        $client->addScope($account->getScope());
+
+        // set connection
         $account->setConnection(new Connection(
-            'token'
+            new ClientConfig(
+                $client
+            )
         ));
 
         $this->setAccount($account);
+    }
+
+    /**
+     * @return Walletobjects
+     */
+    private function createWalletObject(): Walletobjects
+    {
+        return new Walletobjects(
+            $this->account->getConnection()->getConfig()->getClient()
+        );
+    }
+
+    /**
+     * @param Walletobjects $walletService
+     * @return LoyaltyClass|null
+     */
+    private function createLoyaltyClass(Walletobjects $walletService): ?LoyaltyClass
+    {
+        $loyaltyClass = new LoyaltyClass([
+            'id' => $this->getWallet()->getClassId(),
+            'issuerName' => $this->getWallet()->getIssuerName(),
+            'programName' => $this->getWallet()->getProgramName(),
+            'reviewStatus' => $this->getWallet()->getStatus(),
+            'logo' => [
+                'sourceUri' => [
+                    'uri' => $this->getWallet()->getStyle()->getLogoUri()
+                ]
+            ],
+            'imageModulesData' => [
+                [
+                    'mainImage' => [
+                        'sourceUri' => [
+                            'uri' => $this->getWallet()->getStyle()->getImageUri()
+                        ]
+                    ]
+                ]
+            ],
+            'hexBackgroundColor' => $this->getWallet()->getStyle()->getHexBackgroundColor(),
+            'hexTextColor' => $this->getWallet()->getStyle()->getHexTextColor(),
+        ]);
+
+        try {
+            return $walletService->loyaltyclass->insert($loyaltyClass);
+        } catch (\Google\Service\Exception $e) {
+            $this->error($e->getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Walletobjects $walletService
+     * @return LoyaltyObject|null
+     */
+    private function createLoyaltyObject(Walletobjects $walletService): ?LoyaltyObject
+    {
+        $loyaltyObject = new LoyaltyObject([
+            'id' => $this->getWallet()->getObjectId(),
+            'classId' => $this->getWallet()->getClassId(),
+            'state' => $this->getWallet()->getStatus(),
+            'accountId' => $this->getWallet()->getWalletData()['accountId'],
+            'accountName' => $this->getWallet()->getWalletData()['accountName'],
+            'barcode' => [
+                'type' => $this->getWallet()->getWalletData()['barcode']['type'],
+                'value' => $this->getWallet()->getWalletData()['barcode']['value'],
+                'alternateText' => $this->getWallet()->getWalletData()['barcode']['alternateText']
+            ]
+        ]);
+
+        try {
+            return $walletService->loyaltyobject->insert($loyaltyObject);
+        } catch (\Google\Service\Exception $e) {
+            $this->error($e->getMessage());
+        }
+
+        return null;
     }
 
     /**
@@ -46,5 +177,22 @@ class GoogleWalletDriver implements DriverInterface
     public function getAccount(): Account
     {
         return $this->account;
+    }
+
+    /**
+     * @param Wallet $wallet
+     * @return void
+     */
+    public function setWallet(Wallet $wallet): void
+    {
+        $this->wallet = $wallet;
+    }
+
+    /**
+     * @return Wallet
+     */
+    public function getWallet(): Wallet
+    {
+        return $this->wallet;
     }
 }

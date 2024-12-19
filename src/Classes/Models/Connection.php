@@ -7,27 +7,27 @@ namespace TWOH\WalletDriver\Models;
 class Connection
 {
     /**
-     * @var string $token The variable that holds the token of the account.
+     * @var ClientConfig $config The variable that holds the client configuration
      */
-    protected string $token = '';
+    protected ClientConfig $config;
 
     /**
-     * @param string $token
+     * @param ClientConfig $config
      */
     public function __construct(
-        string $token
+        ClientConfig $config
     )
     {
-        $this->setToken($token);
+        $this->setConfig($config);
     }
 
-    public function getToken(): string
+    public function getConfig(): ClientConfig
     {
-        return $this->token;
+        return $this->config;
     }
 
-    public function setToken(string $token): void
+    public function setConfig(ClientConfig $config): void
     {
-        $this->token = $token;
+        $this->config = $config;
     }
 }

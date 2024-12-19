@@ -1,0 +1,141 @@
+<?php
+
+declare(strict_types=1);
+
+namespace TWOH\WalletDriver\Models;
+
+class Wallet
+{
+    /**
+     * @var string $classId contains the class id of your wallet
+     */
+    protected string $classId = '';
+
+    /**
+     * @var string $objectId contains the object id of your wallet
+     */
+    protected string $objectId = '';
+
+    /**
+     * @var string $issuerName contains the issuer name for your wallet
+     */
+    protected string $issuerName = '';
+
+    /**
+     * @var string $programName contains the program name for your wallet
+     */
+    protected string $programName = '';
+
+    /**
+     * @var string $status contains the status of your wallet
+     */
+    protected string $status = '';
+
+    /**
+     * @var array $walletData contains the data that be displayed on your wallet
+     */
+    protected array $walletData = [];
+
+    /**
+     * @var WalletStyle $style contains the wallet stylings
+     */
+    protected WalletStyle $style;
+
+    /**
+     * @param string $classId
+     * @param string $objectId
+     * @param string $issuerName
+     * @param string $programName
+     * @param string $status
+     * @param array $walletData
+     * @param WalletStyle $style
+     */
+    public function __construct(
+        string $classId,
+        string $objectId,
+        string $issuerName,
+        string $programName,
+        string $status,
+        array $walletData,
+        WalletStyle $style
+    )
+    {
+        $this->setClassId($classId);
+        $this->setObjectId($objectId);
+        $this->setIssuerName($issuerName);
+        $this->setProgramName($programName);
+        $this->setStatus($status);
+        $this->setWalletData($walletData);
+        $this->setStyle($style);
+    }
+
+    public function getClassId(): string
+    {
+        return $this->classId;
+    }
+
+    public function setClassId(string $classId): void
+    {
+        $this->classId = $classId;
+    }
+
+    public function getObjectId(): string
+    {
+        return $this->objectId;
+    }
+
+    public function setObjectId(string $objectId): void
+    {
+        $this->objectId = $objectId;
+    }
+
+    public function getIssuerName(): string
+    {
+        return $this->issuerName;
+    }
+
+    public function setIssuerName(string $issuerName): void
+    {
+        $this->issuerName = $issuerName;
+    }
+
+    public function getProgramName(): string
+    {
+        return $this->programName;
+    }
+
+    public function setProgramName(string $programName): void
+    {
+        $this->programName = $programName;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
+    }
+
+    public function getWalletData(): array
+    {
+        return $this->walletData;
+    }
+
+    public function setWalletData(array $walletData): void
+    {
+        $this->walletData = $walletData;
+    }
+
+    public function getStyle(): WalletStyle
+    {
+        return $this->style;
+    }
+
+    public function setStyle(WalletStyle $style): void
+    {
+        $this->style = $style;
+    }
+}

@@ -3,9 +3,9 @@ services:
         build:
             context: ./build/docker/php
             dockerfile: Dockerfile/Dockerfile
-        container_name: database_driver_php83_container
+        container_name: wallet_driver_php83_container
         volumes:
-            - ./:/var/database-driver/
+            - ./:/var/wallet-driver/
             - ./build/docker/php/conf/php.ini:/usr/local/etc/php/php.ini
         ports:
             - "9000:9000"
@@ -18,28 +18,11 @@ services:
             timeout: 10s
             retries: 3
         networks:
-            - DatabaseDriverNetwork
+            - WalletDriverNetwork
         deploy:
             mode: global
 
-    mongodb:
-        build:
-            context: ./build/docker/mongo
-            dockerfile: Dockerfile/Dockerfile
-        container_name: database_driver_mongodb_container
-        restart: always
-        ports:
-            - "${DB_PORT}:${DB_PORT}"
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
-            MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
-            MONGO_INITDB_DATABASE: ${DB_DATABASE}
-        volumes:
-            - ./data/mongodb:/data/db
-        networks:
-            - DatabaseDriverNetwork
-
 networks:
-    DatabaseDriverNetwork:
+    WalletDriverNetwork:
         driver: bridge
         attachable: true
