@@ -5,40 +5,48 @@ namespace TWOH\WalletDriver\Models;
 class WalletStyle
 {
     /**
-     * @var string contains the logo uri that be displayed on your wallet
+     * @var string $logoUri contains the logo uri that be displayed on your wallet
      */
     protected string $logoUri = '';
 
     /**
-     * @var string contains the image uri that be displayed on your wallet
+     * @var string $imageUri contains the image uri that be displayed on your wallet
      */
     protected string $imageUri = '';
 
     /**
-     * @var string contains the background color that be displayed on your wallet
+     * @var string $iconUri contains the icon uri that be displayed on your wallet
+     */
+    protected string $iconUri = '';
+
+    /**
+     * @var string $hexBackgroundColor contains the background color that be displayed on your wallet
      */
     protected string $hexBackgroundColor = '';
 
     /**
-     * @var string contains the text color that be displayed on your wallet
+     * @var string $hexTextColor contains the text color that be displayed on your wallet
      */
     protected string $hexTextColor = '';
 
     /**
      * @param string $logoUri
      * @param string $imageUri
+     * @param string $iconUri
      * @param string $hexBackgroundColor
      * @param string $hexTextColor
      */
     public function __construct(
         string $logoUri,
         string $imageUri,
+        string $iconUri,
         string $hexBackgroundColor,
         string $hexTextColor
     )
     {
         $this->setLogoUri($logoUri);
         $this->setImageUri($imageUri);
+        $this->setIconUri($iconUri);
         $this->setHexBackgroundColor($hexBackgroundColor);
         $this->setHexTextColor($hexTextColor);
     }
@@ -61,6 +69,16 @@ class WalletStyle
     public function setImageUri(string $imageUri): void
     {
         $this->imageUri = $imageUri;
+    }
+
+    public function getIconUri(): string
+    {
+        return $this->iconUri;
+    }
+
+    public function setIconUri(string $iconUri): void
+    {
+        $this->iconUri = $iconUri;
     }
 
     public function getHexBackgroundColor(): string

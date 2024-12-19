@@ -14,9 +14,10 @@
   "license": "MIT",
   "require": {
     "php": "^8.3",
-    "twoh/validator": "^1",
+    "google/apiclient": "^2",
+    "pkpass/pkpass": "^2.3",
     "twoh/logger": "^1",
-    "google/apiclient": "^2"
+    "twoh/validator": "^1"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",

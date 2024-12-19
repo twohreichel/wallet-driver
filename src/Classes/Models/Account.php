@@ -12,21 +12,6 @@ class Account
     protected string $issuerId = '';
 
     /**
-     * @var string $username The variable that holds the username value.
-     */
-    protected string $username = '';
-
-    /**
-     * @var string $password The variable that holds the password value.
-     */
-    protected string $password = '';
-
-    /**
-     * @var string $host The variable that holds the host value.
-     */
-    protected string $host = '';
-
-    /**
      * @NotEmpty
      * @var string $driver The variable that holds the driver that need to be called for wallet generation.
      */
@@ -58,37 +43,68 @@ class Account
     protected string $privateKeyPath = '';
 
     /**
+     * @var string $appleCertificatePath The variable that holds the apple certificate path of the account.
+     */
+    protected string $appleCertificatePath = '';
+
+    /**
+     * @var string $appleCertificatePassword The variable that holds the apple certificate password of the account.
+     */
+    protected string $appleCertificatePassword = '';
+
+    /**
+     * @var string $applePKPassStorePath The variable that holds the path where to store the pkpass file of the account.
+     */
+    protected string $applePKPassStorePath = '';
+
+    /**
+     * @var string $applePassTypeIdentifier The variable that holds the applePassTypeIdentifier of the account.
+     */
+    protected string $applePassTypeIdentifier = '';
+
+    /**
+     * @var string $appleTeamIdentifier The variable that holds the appleTeamIdentifier of the account.
+     */
+    protected string $appleTeamIdentifier = '';
+
+    /**
      * @param string $issuerId
-     * @param string $host
-     * @param string $username
-     * @param string $password
      * @param string $driver
      * @param string $applicationName
      * @param string $authConfig
      * @param string $scope
      * @param string $privateKeyPath
+     * @param string $appleCertificatePath
+     * @param string $appleCertificatePassword
+     * @param string $applePKPassStorePath
+     * @param string $applePassTypeIdentifier
+     * @param string $appleTeamIdentifier
      */
     public function __construct(
         string $issuerId,
-        string $host,
-        string $username,
-        string $password,
         string $driver,
         string $applicationName,
         string $authConfig,
         string $scope,
-        string $privateKeyPath
+        string $privateKeyPath,
+        string $appleCertificatePath,
+        string $appleCertificatePassword,
+        string $applePKPassStorePath,
+        string $applePassTypeIdentifier,
+        string $appleTeamIdentifier
     )
     {
         $this->setIssuerId($issuerId);
-        $this->setHost($host);
-        $this->setUsername($username);
-        $this->setPassword($password);
         $this->setDriver($driver);
         $this->setApplicationName($applicationName);
         $this->setAuthConfig($authConfig);
         $this->setScope($scope);
         $this->setPrivateKeyPath($privateKeyPath);
+        $this->setAppleCertificatePath($appleCertificatePath);
+        $this->setAppleCertificatePassword($appleCertificatePassword);
+        $this->setApplePKPassStorePath($applePKPassStorePath);
+        $this->setApplePassTypeIdentifier($applePassTypeIdentifier);
+        $this->setAppleTeamIdentifier($appleTeamIdentifier);
     }
 
     public function getIssuerId(): string
@@ -99,36 +115,6 @@ class Account
     public function setIssuerId(string $issuerId): void
     {
         $this->issuerId = $issuerId;
-    }
-
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): void
-    {
-        $this->username = $username;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): void
-    {
-        $this->password = $password;
-    }
-
-    public function getHost(): string
-    {
-        return $this->host;
-    }
-
-    public function setHost(string $host): void
-    {
-        $this->host = $host;
     }
 
     public function getDriver(): string
@@ -189,5 +175,55 @@ class Account
     public function setPrivateKeyPath(string $privateKeyPath): void
     {
         $this->privateKeyPath = $privateKeyPath;
+    }
+
+    public function getAppleCertificatePath(): string
+    {
+        return $this->appleCertificatePath;
+    }
+
+    public function setAppleCertificatePath(string $appleCertificatePath): void
+    {
+        $this->appleCertificatePath = $appleCertificatePath;
+    }
+
+    public function getAppleCertificatePassword(): string
+    {
+        return $this->appleCertificatePassword;
+    }
+
+    public function setAppleCertificatePassword(string $appleCertificatePassword): void
+    {
+        $this->appleCertificatePassword = $appleCertificatePassword;
+    }
+
+    public function getApplePKPassStorePath(): string
+    {
+        return $this->applePKPassStorePath;
+    }
+
+    public function setApplePKPassStorePath(string $applePKPassStorePath): void
+    {
+        $this->applePKPassStorePath = $applePKPassStorePath;
+    }
+
+    public function getApplePassTypeIdentifier(): string
+    {
+        return $this->applePassTypeIdentifier;
+    }
+
+    public function setApplePassTypeIdentifier(string $applePassTypeIdentifier): void
+    {
+        $this->applePassTypeIdentifier = $applePassTypeIdentifier;
+    }
+
+    public function getAppleTeamIdentifier(): string
+    {
+        return $this->appleTeamIdentifier;
+    }
+
+    public function setAppleTeamIdentifier(string $appleTeamIdentifier): void
+    {
+        $this->appleTeamIdentifier = $appleTeamIdentifier;
     }
 }

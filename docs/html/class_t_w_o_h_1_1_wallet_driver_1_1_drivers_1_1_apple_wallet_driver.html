@@ -119,6 +119,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a952b469b6f4def058040586bffec21c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83fe9353c9e685460e86bdeec9087f32" id="r_a83fe9353c9e685460e86bdeec9087f32"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83fe9353c9e685460e86bdeec9087f32">getWallet</a> ()</td></tr>
 <tr class="separator:a83fe9353c9e685460e86bdeec9087f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad407be230f10d5a056375dd03fcc8c79" id="r_ad407be230f10d5a056375dd03fcc8c79"><td class="memItemLeft" align="right" valign="top"><a id="ad407be230f10d5a056375dd03fcc8c79" name="ad407be230f10d5a056375dd03fcc8c79"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>getPass</b> ()</td></tr>
+<tr class="separator:ad407be230f10d5a056375dd03fcc8c79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadc0768dff26d2fc913f14c2276b4f2c" id="r_aadc0768dff26d2fc913f14c2276b4f2c"><td class="memItemLeft" align="right" valign="top"><a id="aadc0768dff26d2fc913f14c2276b4f2c" name="aadc0768dff26d2fc913f14c2276b4f2c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>setPass</b> (PKPass $pass)</td></tr>
+<tr class="separator:aadc0768dff26d2fc913f14c2276b4f2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_interface_t_w_o_h_1_1_wallet_driver_1_1_drivers_1_1_driver_interface"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_interface_t_w_o_h_1_1_wallet_driver_1_1_drivers_1_1_driver_interface')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="interface_t_w_o_h_1_1_wallet_driver_1_1_drivers_1_1_driver_interface.html">TWOH\WalletDriver\Drivers\DriverInterface</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
@@ -129,6 +135,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:af99a567e21195c04cdbe9f2315c4f596" id="r_af99a567e21195c04cdbe9f2315c4f596"><td class="memItemLeft" align="right" valign="top"><a id="af99a567e21195c04cdbe9f2315c4f596" name="af99a567e21195c04cdbe9f2315c4f596"></a>
 <a class="el" href="class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_wallet.html">Wallet</a>&#160;</td><td class="memItemRight" valign="bottom"><b>$wallet</b></td></tr>
 <tr class="separator:af99a567e21195c04cdbe9f2315c4f596"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68608ed74f301175876f85849abe8dc1" id="r_a68608ed74f301175876f85849abe8dc1"><td class="memItemLeft" align="right" valign="top"><a id="a68608ed74f301175876f85849abe8dc1" name="a68608ed74f301175876f85849abe8dc1"></a>
+PKPass&#160;</td><td class="memItemRight" valign="bottom"><b>$pass</b></td></tr>
+<tr class="separator:a68608ed74f301175876f85849abe8dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="af846f63792d4860e000a074e4fb8d482" name="af846f63792d4860e000a074e4fb8d482"></a>
@@ -146,6 +155,13 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">PKPassException</td><td></td></tr>
+    <tr><td class="paramname">RandomException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interface_t_w_o_h_1_1_wallet_driver_1_1_drivers_1_1_driver_interface.html">TWOH\WalletDriver\Drivers\DriverInterface</a>.</p>
 
@@ -165,7 +181,7 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Account </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implements <a class="el" href="interface_t_w_o_h_1_1_wallet_driver_1_1_drivers_1_1_driver_interface.html">TWOH\WalletDriver\Drivers\DriverInterface</a>.</p>
 

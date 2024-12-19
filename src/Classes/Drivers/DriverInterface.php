@@ -11,7 +11,7 @@ interface DriverInterface
 {
     public function buildWallet(): string;
 
-    public function connect(): Account;
+    public function connect(): void;
 
     public function setAccount(Account $account): void;
 

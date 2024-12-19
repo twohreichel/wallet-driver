@@ -62,10 +62,10 @@ class GoogleWalletDriver implements DriverInterface
     }
 
     /**
-     * @return Account
+     * @return void
      * @throws Exception
      */
-    public function connect(): Account
+    public function connect(): void
     {
         // get account informations
         $account = $this->getAccount();

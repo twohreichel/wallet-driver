@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace TWOH\WalletDriver\Drivers;
 
+use PKPass\PKPass;
+use PKPass\PKPassException;
+use Random\RandomException;
 use TWOH\WalletDriver\Models\Account;
-use TWOH\WalletDriver\Models\Connection;
 use TWOH\WalletDriver\Models\Wallet;
 
 class AppleWalletDriver implements DriverInterface
@@ -21,26 +23,91 @@ class AppleWalletDriver implements DriverInterface
     protected Wallet $wallet;
 
     /**
+     * @var PKPass
+     */
+    protected PKPass $pass;
+
+    /**
      * @return string
+     * @throws PKPassException
+     * @throws RandomException
      */
     public function buildWallet(): string
     {
         $this->connect();
 
-        return 'Apple Wallet';
+        return $this->createPKPassFile();
     }
 
     /**
-     * @return Account
+     * @return void
      */
-    public function connect(): Account
+    public function connect(): void
     {
-        $account = $this->getAccount();
-        $account->setConnection(new Connection(
-            'token'
-        ));
+        $this->setPass(
+            new PKPass(
+                $this->getAccount()->getAppleCertificatePath(),
+                $this->getAccount()->getAppleCertificatePassword()
+            )
+        );
+    }
 
-        $this->setAccount($account);
+    /**
+     * @return string
+     * @throws PKPassException
+     * @throws RandomException
+     */
+    private function createPKPassFile(): string
+    {
+        $id = random_int(100000, 999999) . '-' . random_int(100, 999) . '-' . random_int(100, 999);
+
+        // Pass content
+        $data = [
+            'description' => $this->getWallet()->getProgramName(),
+            'formatVersion' => 1,
+            'organizationName' => $this->getWallet()->getIssuerName(),
+            'passTypeIdentifier' => $this->account->getApplePassTypeIdentifier(),
+            'serialNumber' => $id,
+            'teamIdentifier' => $this->getAccount()->getAppleTeamIdentifier(), // Change this!
+            'card' => [
+                'primaryFields' => [
+                    [
+                        'key' => 'name',
+                        'label' => 'Name',
+                        'value' => $this->getWallet()->getWalletData()['accountName'],
+                    ],
+                ],
+                'backFields' => [
+                    [
+                        'key' => 'id',
+                        'label' => 'ID',
+                        'value' => $this->getWallet()->getWalletData()['accountId'],
+                    ],
+                ],
+            ],
+
+            'barcode' => [
+                'format' => $this->getWallet()->getWalletData()['barcode']['type'],
+                'message' => $this->getWallet()->getWalletData()['barcode']['value'],
+                'altText' => $this->getWallet()->getWalletData()['barcode']['alternateText'],
+                'messageEncoding' => 'iso-8859-1',
+            ],
+            'backgroundColor' => $this->getWallet()->getStyle()->getHexBackgroundColor(),
+            'logoText' => '',
+            'relevantDate' => date('Y-m-d\TH:i:sP')
+        ];
+
+        $this->getPass()->setData($data);
+
+        // Add files to the pass package
+        $this->getPass()->addFile($this->getWallet()->getStyle()->getIconUri(), 'icon.png');
+        // @ToDo: did we need the icon2?
+        // $this->getPass()->addFile('images/icon@2x.png', 'icon@2x.png');
+        $this->getPass()->addFile($this->getWallet()->getStyle()->getLogoUri(), 'logo.png');
+        $this->getPass()->addFile($this->getWallet()->getStyle()->getImageUri(), 'background.png');
+
+        // Create and output the pass
+        return $this->getPass()->create();
     }
 
     /**
@@ -75,5 +142,15 @@ class AppleWalletDriver implements DriverInterface
     public function getWallet(): Wallet
     {
         return $this->wallet;
+    }
+
+    public function getPass(): PKPass
+    {
+        return $this->pass;
+    }
+
+    public function setPass(PKPass $pass): void
+    {
+        $this->pass = $pass;
     }
 }
