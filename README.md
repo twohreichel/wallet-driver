@@ -135,3 +135,13 @@ To verify that the tests are passing, run the following command:
 ```shell
 vendor/bin/phpunit
 ```
+
+#### Documentation
+###### Generate Documentation
+```shell
+doxygen Doxyfile
+```
+###### Open Documentation in Browser
+```bash
+open docs/html/index.html
+```
