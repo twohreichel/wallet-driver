@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use TWOH\Logger\Utilities\LogDirectoryUtility;
 use TWOH\WalletDriver\Exceptions\ValidationFailedException;
 use TWOH\WalletDriver\Models\Account;
@@ -7,10 +9,12 @@ use TWOH\WalletDriver\Models\Wallet;
 use TWOH\WalletDriver\Models\WalletStyle;
 use TWOH\WalletDriver\Services\WalletDriverService;
 
+require __DIR__ . '/../vendor/autoload.php';
+
 LogDirectoryUtility::$logDirectory = __DIR__ . '/../logs/';
 
 try {
-    /** @var string $generatedAppleWalletUrl contains a link that allows the end user to add the card directly to their Apple Wallet */
+    // $generatedAppleWalletUrl contains a link that allows the end user to add the card directly to their Apple Wallet
     $generatedAppleWalletUrl = (new WalletDriverService(
         new Account(
             '',
@@ -59,7 +63,7 @@ try {
         )
     ))->__invoke();
 
-    $this->info($generatedAppleWalletUrl);
-} catch (ReflectionException|ValidationFailedException $e) {
-    $this->error($e->getMessage());
+    var_dump($generatedAppleWalletUrl);
+} catch (ValidationFailedException $e) {
+    var_dump($e->getMessage());
 }

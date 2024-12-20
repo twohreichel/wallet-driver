@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace TWOH\WalletDriver\Services;
 
-use TWOH\Validator\Examples\UserValidator;
 use TWOH\WalletDriver\Drivers\DriverInterface;
 use TWOH\Logger\Traits\LoggerTrait;
 use TWOH\Logger\Traits\OutputTrait;
@@ -41,17 +40,13 @@ final class WalletDriverService
      * @param Account $account
      * @param Wallet $wallet
      * @throws ValidationFailedException
-     * @throws \ReflectionException
      */
     public function __construct(
         Account $account,
         Wallet $wallet
     )
     {
-        $validator = new UserValidator();
-        $errors = $validator->validate($account);
-
-        if (count($errors) > 0) {
+        if ($account->getDriver() === '') {
             throw new ValidationFailedException('Account validation failed: ' . implode(', ', $errors));
         }
 

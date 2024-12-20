@@ -50,12 +50,12 @@ docker-compose up -d --build
 ---
 
 #### Setup Google Wallet
-[Setup Google Wallet](examples/googleWallet.php)
+[Setup Google Wallet](examples/GoogleWallet.php)
 
 ---
 
 #### Setup Apple Wallet
-[Setup Apple Wallet](examples/appleWallet.php)
+[Setup Apple Wallet](examples/AppleWallet.php)
 
 ---
 
