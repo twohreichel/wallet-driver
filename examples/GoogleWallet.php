@@ -45,9 +45,9 @@ try {
                 ]
             ],
             new WalletStyle(
-            // PNG
-            // Pixel size: 200 x 200 Pixel.
-            // Aspect ratio: 2:1 (Breite:Höhe).
+                // PNG
+                // Pixel size: 200 x 200 Pixel.
+                // Aspect ratio: 2:1 (Breite:Höhe).
                 'https://www.example.com/images/logo.png',
                 // PNG
                 // Pixel size: 1440 x 600 Pixel.

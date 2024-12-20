@@ -67,23 +67,20 @@ class GoogleWalletDriver implements DriverInterface
      */
     public function connect(): void
     {
-        // get account informations
-        $account = $this->getAccount();
-
         // create google client
         $client = new Client();
-        $client->setApplicationName($account->getApplicationName());
-        $client->setAuthConfig($account->getAuthConfig()); // JSON-Datei
-        $client->addScope($account->getScope());
+        $client->setApplicationName($this->getAccount()->getApplicationName());
+        $client->setAuthConfig($this->getAccount()->getAuthConfig()); // JSON-Datei
+        $client->addScope($this->getAccount()->getScope());
 
         // set connection
-        $account->setConnection(new Connection(
+        $this->getAccount()->setConnection(new Connection(
             new ClientConfig(
                 $client
             )
         ));
 
-        $this->setAccount($account);
+        $this->setAccount($this->getAccount());
     }
 
     /**

@@ -47,7 +47,7 @@ final class WalletDriverService
     )
     {
         if ($account->getDriver() === '') {
-            throw new ValidationFailedException('Account validation failed: ' . implode(', ', $errors));
+            throw new ValidationFailedException('No Driver set. Please at a Driver.');
         }
 
         $driver = $account->getDriver();
