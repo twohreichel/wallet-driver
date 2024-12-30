@@ -9,6 +9,8 @@ use Google\Exception;
 use Google\Service\Walletobjects;
 use Google\Service\Walletobjects\LoyaltyClass;
 use Google\Service\Walletobjects\LoyaltyObject;
+use InvalidArgumentException;
+use LogicException;
 use TWOH\Logger\Traits\LoggerTrait;
 use TWOH\WalletDriver\Exceptions\JWTTokenException;
 use TWOH\WalletDriver\Models\Account;
@@ -67,18 +69,22 @@ class GoogleWalletDriver implements DriverInterface
      */
     public function connect(): void
     {
-        // create google client
-        $client = new Client();
-        $client->setApplicationName($this->getAccount()->getApplicationName());
-        $client->setAuthConfig($this->getAccount()->getAuthConfig()); // JSON-Datei
-        $client->addScope($this->getAccount()->getScope());
+        try {
+            // create google client
+            $client = new Client();
+            $client->setApplicationName($this->getAccount()->getApplicationName());
+            $client->addScope($this->getAccount()->getScope());
+            $client->setAuthConfig($this->getAccount()->getAuthConfig()); // JSON-Datei
 
-        // set connection
-        $this->getAccount()->setConnection(new Connection(
-            new ClientConfig(
-                $client
-            )
-        ));
+            // set connection
+            $this->getAccount()->setConnection(new Connection(
+                new ClientConfig(
+                    $client
+                )
+            ));
+        } catch (InvalidArgumentException|LogicException $e) {
+            $this->error($e->getMessage());
+        }
 
         $this->setAccount($this->getAccount());
     }
