@@ -14,10 +14,14 @@ require __DIR__ . '/../vendor/autoload.php';
 LogDirectoryUtility::$logDirectory = __DIR__ . '/../logs/';
 
 try {
+    // unique issuer id
+    $issuerId = '3388000000022809867';
+    $classId = 'testCard';
+
     // $generatedGoogleWallet contains a link that allows the end user to add the card directly to their Google Wallet
     $generatedGoogleWalletUrl = (new WalletDriverService(
         new Account(
-            'your-issuer-id',
+            $issuerId,
             'Google',
             'Application',
             __DIR__ . '/google_settings/skilful-alpha-446310-a1-1e74e4108812.json',
@@ -30,8 +34,8 @@ try {
             ''
         ),
         new Wallet(
-            'yourIssuerId.loyaltyClass1',
-            'yourIssuerId.loyaltyObject1',
+            $issuerId . '.' . $classId . 'Class',
+            $issuerId . '.' . $classId . 'Object',
             'Beispiel-Unternehmen',
             'Beispiel-Treueprogramm',
             'APPROVED',

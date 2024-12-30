@@ -110,6 +110,11 @@ class GoogleWalletDriver implements DriverInterface
             'id' => $this->getWallet()->getClassId(),
             'issuerName' => $this->getWallet()->getIssuerName(),
             'programName' => $this->getWallet()->getProgramName(),
+            'programLogo' => [
+                'sourceUri' => [
+                    'uri' => $this->getWallet()->getStyle()->getLogoUri()
+                ]
+            ],
             'reviewStatus' => $this->getWallet()->getStatus(),
             'logo' => [
                 'sourceUri' => [
@@ -130,9 +135,40 @@ class GoogleWalletDriver implements DriverInterface
         ]);
 
         try {
+            // If available, it does not need to be inserted
+            $currentLoyaltyClass = $this->findExistingLoyaltyClass($walletService);
+            if ($currentLoyaltyClass instanceof LoyaltyClass) {
+                return $currentLoyaltyClass;
+            }
             return $walletService->loyaltyclass->insert($loyaltyClass);
         } catch (\Google\Service\Exception $e) {
             $this->error($e->getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Walletobjects $walletService
+     * @return LoyaltyClass|null
+     * @throws \Google\Service\Exception
+     */
+    private function findExistingLoyaltyClass(
+        Walletobjects $walletService
+    ): ?LoyaltyClass
+    {
+        $loyaltyClasses = $walletService->loyaltyclass->listLoyaltyclass(
+            [
+                'issuerId' => $this->getAccount()->getIssuerId()
+            ]
+        )->getResources();
+
+        if (count($loyaltyClasses) > 0) {
+            foreach ($loyaltyClasses as $loyaltyClass) {
+                if ($loyaltyClass->getId() === $this->getWallet()->getClassId()) {
+                    return $loyaltyClass;
+                }
+            }
         }
 
         return null;
@@ -147,7 +183,7 @@ class GoogleWalletDriver implements DriverInterface
         $loyaltyObject = new LoyaltyObject([
             'id' => $this->getWallet()->getObjectId(),
             'classId' => $this->getWallet()->getClassId(),
-            'state' => $this->getWallet()->getStatus(),
+            'state' => 'ACTIVE',
             'accountId' => $this->getWallet()->getWalletData()['accountId'],
             'accountName' => $this->getWallet()->getWalletData()['accountName'],
             'barcode' => [
@@ -158,9 +194,40 @@ class GoogleWalletDriver implements DriverInterface
         ]);
 
         try {
+            // If available, it does not need to be inserted
+            $currentLoyaltyObject = $this->findExistingLoyaltyObject($walletService);
+            if ($currentLoyaltyObject instanceof LoyaltyObject) {
+                return $currentLoyaltyObject;
+            }
             return $walletService->loyaltyobject->insert($loyaltyObject);
         } catch (\Google\Service\Exception $e) {
             $this->error($e->getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Walletobjects $walletService
+     * @return LoyaltyObject|null
+     * @throws \Google\Service\Exception
+     */
+    private function findExistingLoyaltyObject(
+        Walletobjects $walletService
+    ): ?LoyaltyObject
+    {
+        $loyaltyObjects = $walletService->loyaltyobject->listLoyaltyobject(
+            [
+                'classId' => $this->getWallet()->getClassId()
+            ]
+        )->getResources();
+
+        if (count($loyaltyObjects) > 0) {
+            foreach ($loyaltyObjects as $loyaltyObject) {
+                if ($loyaltyObject->getId() === $this->getWallet()->getClassId()) {
+                    return $loyaltyObject;
+                }
+            }
         }
 
         return null;

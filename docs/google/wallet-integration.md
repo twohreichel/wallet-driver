@@ -47,3 +47,34 @@
 ### 9. Submit for Review
 - Before going live, your integration may require approval from Google.
 - Submit your app for review in the **Wallet Console**.
+
+---
+
+## Steps to Obtain the Issuer ID
+
+1. **Log in to the Google Pay & Wallet Console**
+  - Go to the [Google Pay & Wallet Console](https://pay.google.com/business/console).
+  - Log in with your Google Developer account.
+
+2. **Select Your Project**
+  - Select the Google Cloud project you set up for the Google Wallet API.
+  - If you don't have a project yet, first create a new project in the [Google Cloud Console](https://console.cloud.google.com/) and enable the Google Wallet API.
+
+3. **Navigate to "Passes API"**
+  - In the Google Pay & Wallet Console, click on "Passes API" in the menu.
+  - There, you'll find an overview of the API settings.
+
+4. **View the Issuer ID**
+  - Under the section "Issuer Details" or "Issuer Information," you will find the Issuer ID. It is a unique numeric ID assigned to your project.
+  - The ID will look something like this: `1234567890`.
+
+5. **Optional: Create a New Issuer**
+  - If no Issuer ID is displayed, click on "Create Issuer."
+  - Fill in the required fields, such as your company name and contact information.
+  - After saving, a new Issuer ID will be generated.
+
+6. **Save the Issuer ID**
+  - Note the ID, as it is needed in your code to create cards or passes with the API.
+
+7. **Allow Mail**
+  - Invite the email that was generated in step one and is contained in the JSON file as a user (developer).
