@@ -20,9 +20,9 @@ try {
             'your-issuer-id',
             'Google',
             'Application',
-            '/path/to/your-service-account.json',
+            __DIR__ . '/google_settings/skilful-alpha-446310-a1-1e74e4108812.json',
             'https://www.googleapis.com/auth/wallet_object.issuer',
-            '/path/to/private-key.pem',
+            __DIR__ . '/google_settings/private-key.pem',
             '',
             '',
             '',
@@ -48,12 +48,12 @@ try {
                 // PNG
                 // Pixel size: 200 x 200 Pixel.
                 // Aspect ratio: 2:1 (Breite:Höhe).
-                'https://www.example.com/images/logo.png',
+                'https://www.drv-tic.de/fileadmin/Travel_Industry_Card-Partner/Seminare/DRV-Basislogo_WEB.png',
                 // PNG
                 // Pixel size: 1440 x 600 Pixel.
                 // Aspect ratio: 2,4:1 (Breite:Höhe).
-                'https://www.example.com/images/background.png',
-                '',
+                'https://www.drv-tic.de/fileadmin/Travel_Industry_Card-Partner/Seminare/DRV-Basislogo_WEB.png',
+                'https://www.drv-tic.de/fileadmin/Travel_Industry_Card-Partner/Seminare/DRV-Basislogo_WEB.png',
                 '#4285F4',
                 '#FFFFFF',
             )

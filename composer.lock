@@ -1333,16 +1333,16 @@
         },
         {
             "name": "twoh/logger",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/twoh-projects/logger.git",
-                "reference": "3f5ed8b962e221eadcc9233c4e4d1e8b31d51839"
+                "reference": "6868657fdc01af6962ea01aa49c66dfdd461d784"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/twoh-projects%2Flogger/repository/archive.zip?sha=3f5ed8b962e221eadcc9233c4e4d1e8b31d51839",
-                "reference": "3f5ed8b962e221eadcc9233c4e4d1e8b31d51839",
+                "url": "https://gitlab.com/api/v4/projects/twoh-projects%2Flogger/repository/archive.zip?sha=6868657fdc01af6962ea01aa49c66dfdd461d784",
+                "reference": "6868657fdc01af6962ea01aa49c66dfdd461d784",
                 "shasum": ""
             },
             "require": {
@@ -1371,9 +1371,9 @@
             "description": "This project contains the basic Implementation of Loggers.",
             "support": {
                 "issues": "https://gitlab.com/twoh-projects/logger/-/issues",
-                "source": "https://gitlab.com/twoh-projects/logger/-/tree/1.0.4"
+                "source": "https://gitlab.com/twoh-projects/logger/-/tree/1.0.5"
             },
-            "time": "2024-09-13T09:42:12+00:00"
+            "time": "2024-12-30T11:00:04+00:00"
         },
         {
             "name": "twoh/validator",

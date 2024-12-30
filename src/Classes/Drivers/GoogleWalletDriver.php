@@ -69,22 +69,23 @@ class GoogleWalletDriver implements DriverInterface
      */
     public function connect(): void
     {
-        try {
-            // create google client
-            $client = new Client();
-            $client->setApplicationName($this->getAccount()->getApplicationName());
-            $client->addScope($this->getAccount()->getScope());
-            $client->setAuthConfig($this->getAccount()->getAuthConfig()); // JSON-Datei
+        // create google client
+        $client = new Client();
+        $client->setApplicationName($this->getAccount()->getApplicationName());
+        $client->addScope($this->getAccount()->getScope());
 
-            // set connection
-            $this->getAccount()->setConnection(new Connection(
-                new ClientConfig(
-                    $client
-                )
-            ));
+        try {
+            $client->setAuthConfig($this->getAccount()->getAuthConfig()); // JSON-Datei
         } catch (InvalidArgumentException|LogicException $e) {
             $this->error($e->getMessage());
         }
+
+        // set connection
+        $this->getAccount()->setConnection(new Connection(
+            new ClientConfig(
+                $client
+            )
+        ));
 
         $this->setAccount($this->getAccount());
     }
