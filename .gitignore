@@ -4,5 +4,5 @@ vendor
 logs/*
 data
 .env
-google_settings/*
-apple_settings/*
+examples/google_settings/*
+examples/apple_settings/*
