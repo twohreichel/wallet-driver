@@ -61,6 +61,6 @@ try {
     ))->__invoke();
 
     var_dump($generatedGoogleWalletUrl);
-} catch (ValidationFailedException $e) {
+} catch (ValidationFailedException|JsonException|ReflectionException $e) {
     var_dump($e->getMessage());
 }

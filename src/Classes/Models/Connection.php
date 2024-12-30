@@ -9,7 +9,7 @@ class Connection
     /**
      * @var ClientConfig $config The variable that holds the client configuration
      */
-    protected ClientConfig $config;
+    private ClientConfig $config;
 
     /**
      * @param ClientConfig $config

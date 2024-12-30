@@ -7,27 +7,27 @@ class WalletStyle
     /**
      * @var string $logoUri contains the logo uri that be displayed on your wallet
      */
-    protected string $logoUri = '';
+    private string $logoUri = '';
 
     /**
      * @var string $imageUri contains the image uri that be displayed on your wallet
      */
-    protected string $imageUri = '';
+    private string $imageUri = '';
 
     /**
      * @var string $iconUri contains the icon uri that be displayed on your wallet
      */
-    protected string $iconUri = '';
+    private string $iconUri = '';
 
     /**
      * @var string $hexBackgroundColor contains the background color that be displayed on your wallet
      */
-    protected string $hexBackgroundColor = '';
+    private string $hexBackgroundColor = '';
 
     /**
      * @var string $hexTextColor contains the text color that be displayed on your wallet
      */
-    protected string $hexTextColor = '';
+    private string $hexTextColor = '';
 
     /**
      * @param string $logoUri

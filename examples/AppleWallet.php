@@ -64,6 +64,6 @@ try {
     ))->__invoke();
 
     var_dump($generatedAppleWalletUrl);
-} catch (ValidationFailedException $e) {
+} catch (ValidationFailedException|JsonException|ReflectionException $e) {
     var_dump($e->getMessage());
 }

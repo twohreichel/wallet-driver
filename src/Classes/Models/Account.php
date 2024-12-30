@@ -9,63 +9,63 @@ class Account
     /**
      * @var string The variable that holds the issuerId value.
      */
-    protected string $issuerId = '';
+    private string $issuerId = '';
 
     /**
      * @NotEmpty
      * @var string $driver The variable that holds the driver that need to be called for wallet generation.
      */
-    protected string $driver = '';
+    private string $driver = '';
 
     /**
      * @var Connection $connection The variable that holds the connection of the account.
      */
-    protected Connection $connection;
+    private Connection $connection;
 
     /**
      * @var string $applicationName The variable that holds the application name of the account.
      */
-    protected string $applicationName = '';
+    private string $applicationName = '';
 
     /**
      * @var string $authConfig The variable that holds the auth config of the account.
      */
-    protected string $authConfig = '';
+    private string $authConfig = '';
 
     /**
      * @var string $scope The variable that holds the scope of the account.
      */
-    protected string $scope = '';
+    private string $scope = '';
 
     /**
      * @var string $privateKeyPath The variable that holds the privateKeyPath of the account.
      */
-    protected string $privateKeyPath = '';
+    private string $privateKeyPath = '';
 
     /**
      * @var string $appleCertificatePath The variable that holds the apple certificate path of the account.
      */
-    protected string $appleCertificatePath = '';
+    private string $appleCertificatePath = '';
 
     /**
      * @var string $appleCertificatePassword The variable that holds the apple certificate password of the account.
      */
-    protected string $appleCertificatePassword = '';
+    private string $appleCertificatePassword = '';
 
     /**
      * @var string $applePKPassStorePath The variable that holds the path where to store the pkpass file of the account.
      */
-    protected string $applePKPassStorePath = '';
+    private string $applePKPassStorePath = '';
 
     /**
      * @var string $applePassTypeIdentifier The variable that holds the applePassTypeIdentifier of the account.
      */
-    protected string $applePassTypeIdentifier = '';
+    private string $applePassTypeIdentifier = '';
 
     /**
      * @var string $appleTeamIdentifier The variable that holds the appleTeamIdentifier of the account.
      */
-    protected string $appleTeamIdentifier = '';
+    private string $appleTeamIdentifier = '';
 
     /**
      * @param string $issuerId

@@ -9,7 +9,7 @@ class ClientConfig
     /**
      * @var object $client contains the client object
      */
-    protected object $client;
+    private object $client;
 
     /**
      * @param object $client

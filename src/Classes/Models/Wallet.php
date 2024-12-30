@@ -9,37 +9,37 @@ class Wallet
     /**
      * @var string $classId contains the class id of your wallet
      */
-    protected string $classId = '';
+    private string $classId = '';
 
     /**
      * @var string $objectId contains the object id of your wallet
      */
-    protected string $objectId = '';
+    private string $objectId = '';
 
     /**
      * @var string $issuerName contains the issuer name for your wallet
      */
-    protected string $issuerName = '';
+    private string $issuerName = '';
 
     /**
      * @var string $programName contains the program name for your wallet
      */
-    protected string $programName = '';
+    private string $programName = '';
 
     /**
      * @var string $status contains the status of your wallet
      */
-    protected string $status = '';
+    private string $status = '';
 
     /**
      * @var array $walletData contains the data that be displayed on your wallet
      */
-    protected array $walletData = [];
+    private array $walletData = [];
 
     /**
      * @var WalletStyle $style contains the wallet stylings
      */
-    protected WalletStyle $style;
+    private WalletStyle $style;
 
     /**
      * @param string $classId

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TWOH\WalletDriver\Services;
 
+use TWOH\Validator\Examples\UserValidator;
 use TWOH\WalletDriver\Drivers\DriverInterface;
 use TWOH\Logger\Traits\LoggerTrait;
 use TWOH\Logger\Traits\OutputTrait;
@@ -40,14 +41,19 @@ final class WalletDriverService
      * @param Account $account
      * @param Wallet $wallet
      * @throws ValidationFailedException
+     * @throws \ReflectionException
+     * @throws \JsonException
      */
     public function __construct(
         Account $account,
         Wallet $wallet
     )
     {
-        if ($account->getDriver() === '') {
-            throw new ValidationFailedException('No Driver set. Please at a Driver.');
+        $validator = new UserValidator();
+        $errors = $validator->validate($account);
+
+        if (count($errors) > 0) {
+            throw new ValidationFailedException(json_encode($errors, JSON_THROW_ON_ERROR));
         }
 
         $driver = $account->getDriver();
