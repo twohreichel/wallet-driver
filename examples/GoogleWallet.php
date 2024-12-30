@@ -34,7 +34,7 @@ try {
             'yourIssuerId.loyaltyObject1',
             'Beispiel-Unternehmen',
             'Beispiel-Treueprogramm',
-            'active',
+            'APPROVED',
             [
                 'accountId' => '123456789',
                 'accountName' => 'Max Mustermann',
