@@ -23,9 +23,9 @@ try {
             '',
             '',
             '',
-            '../Certificates.p12',
+            __DIR__ . '/certificate/Certificates.p12',
             'password',
-            '/var/www/html/pkpass/',
+            __DIR__ . '/pkpass/',
             'pass.com.yourcompany.loyalty',
             'KN44X8ZLNC'
         ),

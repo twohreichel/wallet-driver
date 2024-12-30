@@ -67,7 +67,10 @@ vendor/bin/phpunit
 ```
 
 #### Documentation
-###### Generate Documentation
+- [Google Console Wallet](docs/google/wallet-integration.md)
+- [Apple Console Wallet](docs/apple/wallet-integration.md)
+
+###### Generate PHP Documentation
 ```shell
 doxygen Doxyfile
 ```

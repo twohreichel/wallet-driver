@@ -6,3 +6,4 @@ data
 .env
 examples/google_settings/*
 examples/apple_settings/*
+examples/apple_settings/pkpass/*
