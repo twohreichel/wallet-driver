@@ -39,6 +39,7 @@ try {
                 'accountId' => '123456789',
                 'accountName' => 'Max Mustermann',
                 'barcode' => [
+
                     'type' => 'PKBarcodeFormatPDF417',
                     'value' => '1234ABC5678',
                     'alternateText' => 'Scan mich!'
@@ -48,15 +49,15 @@ try {
                 // PNG
                 // Pixel size: 160 x 50 Pixel.
                 // Aspect ratio: 2:1 (Breite:Höhe).
-                'https://www.example.com/images/logo.png',
+                __DIR__ . '/apple_settings/images/example.png',
                 // PNG
                 // Pixel size: 160 x 50 Pixel.
                 // Aspect ratio: 2,4:1 (Breite:Höhe).
-                'https://www.example.com/images/background.png',
+                __DIR__ . '/apple_settings/images/example.png',
                 // PNG
                 // Pixel size: 29 x 29 Pixel.
                 // Aspect ratio: 1:1 (Breite:Höhe).
-                'https://www.example.com/images/icon.png',
+                __DIR__ . '/apple_settings/images/example.png',
                 'rgb(32,110,247)',
                 'rgb(255,255,255)',
             )

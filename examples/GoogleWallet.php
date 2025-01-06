@@ -52,12 +52,12 @@ try {
                 // PNG
                 // Pixel size: 200 x 200 Pixel.
                 // Aspect ratio: 2:1 (Breite:Höhe).
-                'https://www.drv-tic.de/fileadmin/Travel_Industry_Card-Partner/Seminare/DRV-Basislogo_WEB.png',
+                'https://www.example.com/images/icon.png',
                 // PNG
                 // Pixel size: 1440 x 600 Pixel.
                 // Aspect ratio: 2,4:1 (Breite:Höhe).
-                'https://www.drv-tic.de/fileadmin/Travel_Industry_Card-Partner/Seminare/DRV-Basislogo_WEB.png',
-                'https://www.drv-tic.de/fileadmin/Travel_Industry_Card-Partner/Seminare/DRV-Basislogo_WEB.png',
+                'https://www.example.com/images/icon.png',
+                'https://www.example.com/images/icon.png',
                 '#4285F4',
                 '#FFFFFF',
             )
