@@ -85,26 +85,34 @@ class AppleWalletDriver implements DriverInterface
                     ],
                 ],
             ],
-
-            'barcode' => [
-                'format' => $this->getWallet()->getWalletData()['barcode']['type'],
-                'message' => $this->getWallet()->getWalletData()['barcode']['value'],
-                'altText' => $this->getWallet()->getWalletData()['barcode']['alternateText'],
-                'messageEncoding' => 'iso-8859-1',
-            ],
             'backgroundColor' => $this->getWallet()->getStyle()->getHexBackgroundColor(),
             'logoText' => '',
             'relevantDate' => date('Y-m-d\TH:i:sP')
         ];
 
+        if (!empty($this->getWallet()->getWalletData()['barcode']['type'])) {
+            $data['barcode'] = [
+                'format' => $this->getWallet()->getWalletData()['barcode']['type'],
+                'message' => $this->getWallet()->getWalletData()['barcode']['value'],
+                'altText' => $this->getWallet()->getWalletData()['barcode']['alternateText'],
+                'messageEncoding' => 'iso-8859-1',
+            ];
+        }
+
         $this->getPass()->setData($data);
 
         // Add files to the pass package
-        $this->getPass()->addFile($this->getWallet()->getStyle()->getIconUri(), 'icon.png');
-        // @ToDo: did we need the icon2?
-        // $this->getPass()->addFile('images/icon@2x.png', 'icon@2x.png');
-        $this->getPass()->addFile($this->getWallet()->getStyle()->getLogoUri(), 'logo.png');
-        $this->getPass()->addFile($this->getWallet()->getStyle()->getImageUri(), 'background.png');
+        if (!empty($this->getWallet()->getStyle()->getIconUri())) {
+            $this->getPass()->addFile($this->getWallet()->getStyle()->getIconUri(), 'icon.png');
+            // @ToDo: did we need the icon2?
+            // $this->getPass()->addFile('images/icon@2x.png', 'icon@2x.png');
+        }
+        if (!empty($this->getWallet()->getStyle()->getLogoUri())) {
+            $this->getPass()->addFile($this->getWallet()->getStyle()->getLogoUri(), 'logo.png');
+        }
+        if (!empty($this->getWallet()->getStyle()->getImageUri())) {
+            $this->getPass()->addFile($this->getWallet()->getStyle()->getImageUri(), 'background.png');
+        }
 
         // Create and output the pass
         return $this->getPass()->create();

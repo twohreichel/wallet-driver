@@ -38,26 +38,26 @@ try {
             $issuerId . '.' . $classId . 'Object',
             'Beispiel-Unternehmen',
             'Beispiel-Treueprogramm',
-            'APPROVED',
+            'UNDER_REVIEW',
             [
                 'accountId' => '123456789',
                 'accountName' => 'Max Mustermann',
                 'barcode' => [
-                    'type' => 'qrCode',
-                    'value' => '1234ABC5678',
-                    'alternateText' => 'Scan mich!'
+                    'type' => '',
+                    'value' => '',
+                    'alternateText' => ''
                 ]
             ],
             new WalletStyle(
                 // PNG
                 // Pixel size: 200 x 200 Pixel.
                 // Aspect ratio: 2:1 (Breite:Höhe).
-                'https://www.example.com/images/icon.png',
+                '',
                 // PNG
                 // Pixel size: 1440 x 600 Pixel.
                 // Aspect ratio: 2,4:1 (Breite:Höhe).
-                'https://www.example.com/images/icon.png',
-                'https://www.example.com/images/icon.png',
+                __DIR__ . '/apple_settings/images/example.png',
+                '',
                 '#4285F4',
                 '#FFFFFF',
             )

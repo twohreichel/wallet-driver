@@ -106,7 +106,7 @@ class GoogleWalletDriver implements DriverInterface
      */
     private function createLoyaltyClass(Walletobjects $walletService): ?LoyaltyClass
     {
-        $loyaltyClass = new LoyaltyClass([
+        $settings = [
             'id' => $this->getWallet()->getClassId(),
             'issuerName' => $this->getWallet()->getIssuerName(),
             'programName' => $this->getWallet()->getProgramName(),
@@ -116,12 +116,12 @@ class GoogleWalletDriver implements DriverInterface
                 ]
             ],
             'reviewStatus' => $this->getWallet()->getStatus(),
-            'logo' => [
-                'sourceUri' => [
-                    'uri' => $this->getWallet()->getStyle()->getLogoUri()
-                ]
-            ],
-            'imageModulesData' => [
+            'hexBackgroundColor' => $this->getWallet()->getStyle()->getHexBackgroundColor(),
+            'hexTextColor' => $this->getWallet()->getStyle()->getHexTextColor(),
+        ];
+
+        if (!empty($this->getWallet()->getStyle()->getImageUri())) {
+            $settings['imageModulesData'] = [
                 [
                     'mainImage' => [
                         'sourceUri' => [
@@ -129,10 +129,18 @@ class GoogleWalletDriver implements DriverInterface
                         ]
                     ]
                 ]
-            ],
-            'hexBackgroundColor' => $this->getWallet()->getStyle()->getHexBackgroundColor(),
-            'hexTextColor' => $this->getWallet()->getStyle()->getHexTextColor(),
-        ]);
+            ];
+        }
+
+        if (!empty($this->getWallet()->getStyle()->getLogoUri())) {
+            $settings['logo'] = [
+                'sourceUri' => [
+                    'uri' => $this->getWallet()->getStyle()->getLogoUri()
+                ]
+            ];
+        }
+
+        $loyaltyClass = new LoyaltyClass($settings);
 
         try {
             // If available, it does not need to be inserted
@@ -180,18 +188,25 @@ class GoogleWalletDriver implements DriverInterface
      */
     private function createLoyaltyObject(Walletobjects $walletService): ?LoyaltyObject
     {
-        $loyaltyObject = new LoyaltyObject([
+        $settings = [
             'id' => $this->getWallet()->getObjectId(),
             'classId' => $this->getWallet()->getClassId(),
             'state' => 'ACTIVE',
             'accountId' => $this->getWallet()->getWalletData()['accountId'],
             'accountName' => $this->getWallet()->getWalletData()['accountName'],
-            'barcode' => [
+        ];
+
+        if (!empty($this->getWallet()->getWalletData()['barcode']['type'])) {
+            $settings['barcode'] = [
                 'type' => $this->getWallet()->getWalletData()['barcode']['type'],
                 'value' => $this->getWallet()->getWalletData()['barcode']['value'],
                 'alternateText' => $this->getWallet()->getWalletData()['barcode']['alternateText']
-            ]
-        ]);
+            ];
+        }
+
+        $loyaltyObject = new LoyaltyObject(
+            $settings
+        );
 
         try {
             // If available, it does not need to be inserted
