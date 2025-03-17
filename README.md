@@ -70,6 +70,20 @@ vendor/bin/phpunit
 - [Google Console Wallet](docs/google/wallet-integration.md)
 - [Apple Console Wallet](docs/apple/wallet-integration.md)
 
+#### Running Code Insights
+To run PHP Insights, use the following command:
+
+##### Apple Wallet
+```shell
+docker exec -it wallet_driver_php83_container php examples/AppleWallet.php
+```
+
+##### Google Wallet
+```shell
+docker exec -it wallet_driver_php83_container php examples/GoogleWallet.php
+```
+
+
 ###### Generate PHP Documentation
 ```shell
 doxygen Doxyfile

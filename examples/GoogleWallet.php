@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Dotenv\Dotenv;
 use TWOH\Logger\Utilities\LogDirectoryUtility;
 use TWOH\WalletDriver\Exceptions\ValidationFailedException;
 use TWOH\WalletDriver\Models\Account;
@@ -12,6 +13,9 @@ use TWOH\WalletDriver\Services\WalletDriverService;
 require __DIR__ . '/../vendor/autoload.php';
 
 LogDirectoryUtility::$logDirectory = __DIR__ . '/../logs/';
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 try {
     // unique issuer id
