@@ -19,8 +19,8 @@ $dotenv->load();
 
 try {
     // unique issuer id
-    $issuerId = '3388000000022809867';
-    $classId = 'testCard';
+    $issuerId = '3388000000022876557';
+    $classId = 'eTIC';
 
     // $generatedGoogleWallet contains a link that allows the end user to add the card directly to their Google Wallet
     $generatedGoogleWalletUrl = (new WalletDriverService(
@@ -56,12 +56,12 @@ try {
                 // PNG
                 // Pixel size: 200 x 200 Pixel.
                 // Aspect ratio: 2:1 (Breite:Höhe).
-                '',
+                'https://www.drv-tic.de/fileadmin/eTic/logo.png',
                 // PNG
                 // Pixel size: 1440 x 600 Pixel.
                 // Aspect ratio: 2,4:1 (Breite:Höhe).
-                __DIR__ . '/apple_settings/images/example.png',
-                '',
+                'https://www.drv-tic.de/fileadmin/eTic/background.png',
+                'https://www.drv-tic.de/fileadmin/eTic/icon.png',
                 '#4285F4',
                 '#FFFFFF',
             )
