@@ -40,6 +40,7 @@ class AppleWalletDriver implements DriverInterface
 
         $pkPassFile = '';
         $pkPassContent = $this->createPKPassFile();
+
         if ($pkPassContent && !empty($this->getAccount()->getApplePKPassStorePath())) {
             $pkPassFile = $this->getAccount()->getApplePKPassStorePath() . $this->getWallet()->getWalletData()['accountId'] . '_' . time() . '.pkpass';
             if (!file_put_contents($pkPassFile, $pkPassContent)) {
@@ -115,15 +116,17 @@ class AppleWalletDriver implements DriverInterface
         // Add files to the pass package
         if (!empty($this->getWallet()->getStyle()->getIconUri())) {
             $this->getPass()->addFile($this->getWallet()->getStyle()->getIconUri(), 'icon.png');
-            // @ToDo: did we need the icon2?
-            // $this->getPass()->addFile('images/icon@2x.png', 'icon@2x.png');
         }
+
         if (!empty($this->getWallet()->getStyle()->getLogoUri())) {
             $this->getPass()->addFile($this->getWallet()->getStyle()->getLogoUri(), 'logo.png');
         }
+
         if (!empty($this->getWallet()->getStyle()->getImageUri())) {
             $this->getPass()->addFile($this->getWallet()->getStyle()->getImageUri(), 'background.png');
         }
+
+        $this->getPass()->setTempPath($this->getAccount()->getApplePKPassStorePath());
 
         // Create and output the pass
         return $this->getPass()->create();
