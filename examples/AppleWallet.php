@@ -17,7 +17,7 @@ LogDirectoryUtility::$logDirectory = __DIR__ . '/../logs/';
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-$pkPassPath = __DIR__ . '/apple_settings/pkpass';
+$pkPassPath = __DIR__ . '/apple_settings/pkpass/';
 
 try {
     // $generatedAppleWalletUrl contains a link that allows the end user to add the card directly to their Apple Wallet
@@ -70,7 +70,7 @@ try {
         )
     ))->__invoke();
 
-    var_dump('You can find your stored file in the following directory: ' . $pkPassPath);
+    var_dump('You can find your stored file in the following directory: ' . $generatedAppleWalletUrl);
 } catch (ValidationFailedException|JsonException|ReflectionException $e) {
     var_dump($e->getMessage());
 }

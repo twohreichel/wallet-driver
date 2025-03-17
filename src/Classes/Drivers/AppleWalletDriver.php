@@ -7,6 +7,7 @@ namespace TWOH\WalletDriver\Drivers;
 use PKPass\PKPass;
 use PKPass\PKPassException;
 use Random\RandomException;
+use TWOH\WalletDriver\Exceptions\PkpassGenerationFailedException;
 use TWOH\WalletDriver\Models\Account;
 use TWOH\WalletDriver\Models\Wallet;
 
@@ -31,12 +32,22 @@ class AppleWalletDriver implements DriverInterface
      * @return string
      * @throws PKPassException
      * @throws RandomException
+     * @throws PkpassGenerationFailedException
      */
     public function buildWallet(): string
     {
         $this->connect();
 
-        return $this->createPKPassFile();
+        $pkPassFile = '';
+        $pkPassContent = $this->createPKPassFile();
+        if ($pkPassContent && !empty($this->getAccount()->getApplePKPassStorePath())) {
+            $pkPassFile = $this->getAccount()->getApplePKPassStorePath() . $this->getWallet()->getWalletData()['accountId'] . '_' . time() . '.pkpass';
+            if (!file_put_contents($pkPassFile, $pkPassContent)) {
+                throw new PkpassGenerationFailedException('PKPass file could not be written to ' . $pkPassFile);
+            }
+        }
+
+        return $pkPassFile;
     }
 
     /**
