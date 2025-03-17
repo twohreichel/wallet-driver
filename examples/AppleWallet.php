@@ -33,7 +33,8 @@ try {
             $_ENV['APPLE_CERTIFICATE_PASSWORD'],
             $pkPassPath,
             $_ENV['APPLE_PASS_TYPE_ID'],
-            $_ENV['APPLE_TEAM_ID']
+            $_ENV['APPLE_TEAM_ID'],
+            false
         ),
         new Wallet(
             '',

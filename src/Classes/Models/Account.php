@@ -68,6 +68,11 @@ class Account
     private string $appleTeamIdentifier = '';
 
     /**
+     * @var bool $downloadable The variable that holds the downloadable status of the account.
+     */
+    private bool $downloadable = false;
+
+    /**
      * @param string $issuerId
      * @param string $driver
      * @param string $applicationName
@@ -91,7 +96,8 @@ class Account
         string $appleCertificatePassword,
         string $applePKPassStorePath,
         string $applePassTypeIdentifier,
-        string $appleTeamIdentifier
+        string $appleTeamIdentifier,
+        bool $downloadable
     )
     {
         $this->setIssuerId($issuerId);
@@ -105,6 +111,7 @@ class Account
         $this->setApplePKPassStorePath($applePKPassStorePath);
         $this->setApplePassTypeIdentifier($applePassTypeIdentifier);
         $this->setAppleTeamIdentifier($appleTeamIdentifier);
+        $this->setDownloadable($downloadable);
     }
 
     public function getIssuerId(): string
@@ -225,5 +232,15 @@ class Account
     public function setAppleTeamIdentifier(string $appleTeamIdentifier): void
     {
         $this->appleTeamIdentifier = $appleTeamIdentifier;
+    }
+
+    public function isDownloadable(): bool
+    {
+        return $this->downloadable;
+    }
+
+    public function setDownloadable(bool $downloadable): void
+    {
+        $this->downloadable = $downloadable;
     }
 }

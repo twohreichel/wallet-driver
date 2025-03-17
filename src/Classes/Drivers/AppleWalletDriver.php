@@ -38,14 +38,19 @@ class AppleWalletDriver implements DriverInterface
     {
         $this->connect();
 
-        $pkPassFile = '';
         $pkPassContent = $this->createPKPassFile();
 
-        if ($pkPassContent && !empty($this->getAccount()->getApplePKPassStorePath())) {
-            $pkPassFile = $this->getAccount()->getApplePKPassStorePath() . $this->getWallet()->getWalletData()['accountId'] . '_' . time() . '.pkpass';
-            if (!file_put_contents($pkPassFile, $pkPassContent)) {
-                throw new PkpassGenerationFailedException('PKPass file could not be written to ' . $pkPassFile);
-            }
+        if (empty($this->getAccount()->getApplePKPassStorePath())) {
+            throw new PkpassGenerationFailedException('PKPass storage path not configured');
+        }
+
+        $pkPassFile = $this->getAccount()->getApplePKPassStorePath()
+            . $this->getWallet()->getWalletData()['accountId']
+            . '_' . time()
+            . '.pkpass';
+
+        if (!file_put_contents($pkPassFile, $pkPassContent, LOCK_EX)) {
+            throw new PkpassGenerationFailedException('PKPass file could not be written to ' . $pkPassFile);
         }
 
         return $pkPassFile;
@@ -129,7 +134,7 @@ class AppleWalletDriver implements DriverInterface
         $this->getPass()->setTempPath($this->getAccount()->getApplePKPassStorePath());
 
         // Create and output the pass
-        return $this->getPass()->create();
+        return $this->getPass()->create($this->getAccount()->isDownloadable());
     }
 
     /**
