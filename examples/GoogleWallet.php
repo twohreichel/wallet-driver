@@ -24,7 +24,7 @@ try {
             $issuerId,
             'Google',
             'Application',
-            __DIR__ . '/google_settings/skilful-alpha-446310-a1-1e74e4108812.json',
+            __DIR__ . '/google_settings/friendly-sensor-453509-c2-e232de8f5fd0.json',
             'https://www.googleapis.com/auth/wallet_object.issuer',
             __DIR__ . '/google_settings/private-key.pem',
             '',

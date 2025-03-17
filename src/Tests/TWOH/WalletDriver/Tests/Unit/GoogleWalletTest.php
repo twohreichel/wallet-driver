@@ -10,39 +10,40 @@ use TWOH\WalletDriver\Models\Wallet;
 use TWOH\WalletDriver\Models\WalletStyle;
 use TWOH\WalletDriver\Services\WalletDriverService;
 
-class AppleWalletTest extends TestCase
+class GoogleWalletTest extends TestCase
 {
     /**
      * @throws ReflectionException
      * @throws ValidationFailedException
+     * @throws \JsonException
      */
-    public function testGeneratedAppleWalletUrlUsingRealObjects(): void
+    public function testGeneratedGoogleWalletUrlUsingRealObjects(): void
     {
         $account = new Account(
-            '',
-            'Apple',
+            'your-issuer-id',
+            'Google',
             'Application',
+            '/path/to/your-service-account.json',
+            'https://www.googleapis.com/auth/wallet_object.issuer',
+            '/path/to/private-key.pem',
             '',
             '',
             '',
-            '../Certificates.p12',
-            'password',
-            '/var/www/html/pkpass/',
-            'pass.com.yourcompany.loyalty',
-            'KN44X8ZLNC'
+            '',
+            ''
         );
 
         $walletStyle = new WalletStyle(
             'https://www.example.com/images/logo.png',
             'https://www.example.com/images/background.png',
-            'https://www.example.com/images/icon.png',
-            'rgb(32,110,247)',
-            'rgb(255,255,255)'
+            '',
+            '#4285F4',
+            '#FFFFFF',
         );
 
         $wallet = new Wallet(
-            '',
-            '',
+            'yourIssuerId.loyaltyClass1',
+            'yourIssuerId.loyaltyObject1',
             'Beispiel-Unternehmen',
             'Beispiel-Treueprogramm',
             'active',
@@ -50,7 +51,7 @@ class AppleWalletTest extends TestCase
                 'accountId' => '123456789',
                 'accountName' => 'Max Mustermann',
                 'barcode' => [
-                    'type' => 'PKBarcodeFormatPDF417',
+                    'type' => 'qrCode',
                     'value' => '1234ABC5678',
                     'alternateText' => 'Scan mich!'
                 ]
@@ -59,9 +60,9 @@ class AppleWalletTest extends TestCase
         );
 
         $walletDriverService = new WalletDriverService($account, $wallet);
-        $generatedAppleWalletUrl = $walletDriverService->__invoke();
+        $generatedGoogleWalletUrl = $walletDriverService->__invoke();
 
-        $this->assertNotNull($generatedAppleWalletUrl);
-        $this->assertIsString($generatedAppleWalletUrl);
+        $this->assertNotNull($generatedGoogleWalletUrl);
+        $this->assertIsString($generatedGoogleWalletUrl);
     }
 }
