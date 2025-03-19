@@ -35,7 +35,7 @@ final class WalletDriverService
     /**
      * @var string
      */
-    private const string NAMESPACE_PREFIX = 'TWOH\\WalletDriver\\Drivers\\';
+    private const NAMESPACE_PREFIX = 'TWOH\\WalletDriver\\Drivers\\';
 
     /**
      * @param Account $account
