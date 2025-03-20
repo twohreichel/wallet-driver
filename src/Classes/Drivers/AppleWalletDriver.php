@@ -126,6 +126,8 @@ class AppleWalletDriver implements DriverInterface
         // Add files to the pass package
         if (!empty($this->getWallet()->getStyle()->getIconUri())) {
             $this->getPass()->addFile($this->getWallet()->getStyle()->getIconUri(), 'icon.png');
+            $this->getPass()->addFile($this->getWallet()->getStyle()->getIconUri(), 'icon@2x.png');
+            $this->getPass()->addFile($this->getWallet()->getStyle()->getIconUri(), 'icon@3x.png');
         }
 
         if (!empty($this->getWallet()->getStyle()->getLogoUri())) {
