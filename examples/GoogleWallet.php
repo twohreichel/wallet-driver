@@ -66,6 +66,7 @@ try {
                 'https://www.drv-tic.de/fileadmin/eTic/background.png',
                 'https://www.drv-tic.de/fileadmin/eTic/icon.png',
                 '',
+                '',
                 '#4285F4',
                 '#FFFFFF',
             )
