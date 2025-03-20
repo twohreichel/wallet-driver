@@ -84,6 +84,8 @@ try {
                 __DIR__ . '/apple_settings/images/icon.png',
                 __DIR__ . '/apple_settings/images/background.png',
                 '',
+                '',
+                '',
                 'rgb(32,110,247)',
                 'rgb(255,255,255)',
             )

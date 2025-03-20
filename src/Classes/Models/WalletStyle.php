@@ -30,6 +30,16 @@ class WalletStyle
     private string $thumbnailUri2x = '';
 
     /**
+     * @var string $stripUri contains the $stripUri uri that be displayed on your wallet
+     */
+    private string $stripUri = '';
+
+    /**
+     * @var string $stripUri2x contains the $stripUri2x uri that be displayed on your wallet
+     */
+    private string $stripUri2x = '';
+
+    /**
      * @var string $hexBackgroundColor contains the background color that be displayed on your wallet
      */
     private string $hexBackgroundColor = '';
@@ -45,6 +55,8 @@ class WalletStyle
      * @param string $iconUri
      * @param string $thumbnailUri
      * @param string $thumbnailUri2x
+     * @param string $stripUri
+     * @param string $stripUri2x
      * @param string $hexBackgroundColor
      * @param string $hexTextColor
      */
@@ -54,6 +66,8 @@ class WalletStyle
         string $iconUri,
         string $thumbnailUri,
         string $thumbnailUri2x,
+        string $stripUri,
+        string $stripUri2x,
         string $hexBackgroundColor,
         string $hexTextColor
     )
@@ -63,6 +77,8 @@ class WalletStyle
         $this->setIconUri($iconUri);
         $this->setThumbnailUri($thumbnailUri);
         $this->setThumbnailUri2x($thumbnailUri2x);
+        $this->setStripUri($stripUri);
+        $this->setStripUri2x($stripUri2x);
         $this->setHexBackgroundColor($hexBackgroundColor);
         $this->setHexTextColor($hexTextColor);
     }
@@ -115,6 +131,26 @@ class WalletStyle
     public function setThumbnailUri2x(string $thumbnailUri2x): void
     {
         $this->thumbnailUri2x = $thumbnailUri2x;
+    }
+
+    public function getStripUri(): string
+    {
+        return $this->stripUri;
+    }
+
+    public function setStripUri(string $stripUri): void
+    {
+        $this->stripUri = $stripUri;
+    }
+
+    public function getStripUri2x(): string
+    {
+        return $this->stripUri2x;
+    }
+
+    public function setStripUri2x(string $stripUri2x): void
+    {
+        $this->stripUri2x = $stripUri2x;
     }
 
     public function getHexBackgroundColor(): string

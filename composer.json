@@ -1,7 +1,7 @@
 {
   "name": "twoh/wallet-driver",
   "description": "This project includes a basic Driver to interact with different Walletsystems like Apple and Google.",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "keywords": [
     "php",
     "library",
