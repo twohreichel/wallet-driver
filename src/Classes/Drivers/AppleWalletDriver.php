@@ -40,24 +40,25 @@ class AppleWalletDriver implements DriverInterface
 
         $pkPassContent = $this->createPKPassFile();
 
-        if (empty($this->getAccount()->getApplePKPassStorePath())) {
-            throw new PkpassGenerationFailedException('PKPass storage path not configured');
-        }
-
-        $pkPassFile = $this->getAccount()->getApplePKPassStorePath()
-            . $this->getWallet()->getWalletData()['accountId']
-            . '_' . time()
-            . '.pkpass';
-
         if (!is_dir($this->getAccount()->getApplePKPassStorePath()) && !mkdir($this->getAccount()->getApplePKPassStorePath(), 0777, true) && !is_dir($this->getAccount()->getApplePKPassStorePath())) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $this->getAccount()->getApplePKPassStorePath()));
+            throw new PkpassGenerationFailedException(sprintf('Directory "%s" was not created', $this->getAccount()->getApplePKPassStorePath()));
         }
 
-        if (!file_put_contents($pkPassFile, $pkPassContent, LOCK_EX)) {
-            throw new PkpassGenerationFailedException('PKPass file could not be written to ' . $pkPassFile);
+        // if downloadable is false, then build pkpass file and return its path
+        if (!$this->getAccount()->isDownloadable() && $pkPassContent !== '') {
+            $pkPassFile = $this->getAccount()->getApplePKPassStorePath()
+                . $this->getWallet()->getWalletData()['accountId']
+                . '_' . time()
+                . '.pkpass';
+
+            if (!file_put_contents($pkPassFile, $pkPassContent, LOCK_EX)) {
+                throw new PkpassGenerationFailedException('PKPass file could not be written to ' . $pkPassFile);
+            }
+
+            return $pkPassFile;
         }
 
-        return $pkPassFile;
+        return '';
     }
 
     /**
