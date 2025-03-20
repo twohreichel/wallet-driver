@@ -78,6 +78,9 @@ To run PHP Insights, use the following command:
 docker exec -it wallet_driver_php83_container php examples/AppleWallet.php
 ```
 
+###### Validate PKPass
+[PKPass Validator](https://pkpassvalidator.azurewebsites.net)
+
 ##### Google Wallet
 ```shell
 docker exec -it wallet_driver_php83_container php examples/GoogleWallet.php

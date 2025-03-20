@@ -108,6 +108,8 @@ class AppleWalletDriver implements DriverInterface
                 ],
             ],
             'backgroundColor' => $this->getWallet()->getStyle()->getHexBackgroundColor(),
+            'foregroundColor' => $this->getWallet()->getStyle()->getHexBackgroundColor(),
+            'labelColor' => $this->getWallet()->getStyle()->getHexTextColor(),
             'logoText' => '',
             'relevantDate' => date('Y-m-d\TH:i:sP')
         ];
