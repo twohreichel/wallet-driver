@@ -27,6 +27,11 @@ class Wallet
     private string $programName = '';
 
     /**
+     * @var string $type contains the type of your wallet
+     */
+    private string $type = '';
+
+    /**
      * @var string $status contains the status of your wallet
      */
     private string $status = '';
@@ -35,6 +40,11 @@ class Wallet
      * @var array $walletData contains the data that be displayed on your wallet
      */
     private array $walletData = [];
+
+    /**
+     * @var array $walletFields contains the wallet fields
+     */
+    private array $walletFields = [];
 
     /**
      * @var WalletStyle $style contains the wallet stylings
@@ -46,8 +56,10 @@ class Wallet
      * @param string $objectId
      * @param string $issuerName
      * @param string $programName
+     * @param string $type
      * @param string $status
      * @param array $walletData
+     * @param array $walletFields
      * @param WalletStyle $style
      */
     public function __construct(
@@ -55,8 +67,10 @@ class Wallet
         string $objectId,
         string $issuerName,
         string $programName,
+        string $type,
         string $status,
         array $walletData,
+        array $walletFields,
         WalletStyle $style
     )
     {
@@ -64,8 +78,10 @@ class Wallet
         $this->setObjectId($objectId);
         $this->setIssuerName($issuerName);
         $this->setProgramName($programName);
+        $this->setType($type);
         $this->setStatus($status);
         $this->setWalletData($walletData);
+        $this->setWalletFields($walletFields);
         $this->setStyle($style);
     }
 
@@ -137,5 +153,25 @@ class Wallet
     public function setStyle(WalletStyle $style): void
     {
         $this->style = $style;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): void
+    {
+        $this->type = $type;
+    }
+
+    public function getWalletFields(): array
+    {
+        return $this->walletFields;
+    }
+
+    public function setWalletFields(array $walletFields): void
+    {
+        $this->walletFields = $walletFields;
     }
 }

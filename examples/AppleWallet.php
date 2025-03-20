@@ -41,6 +41,7 @@ try {
             '',
             'Beispiel-Unternehmen',
             'Beispiel-Treueprogramm',
+            'generic',
             'active',
             [
                 'accountId' => '123456789',
@@ -51,6 +52,22 @@ try {
                     'value' => '1234ABC5678',
                     'alternateText' => 'Scan mich!'
                 ]
+            ],
+            [
+                'primaryFields' => [
+                    [
+                        'key' => 'name',
+                        'label' => 'Name',
+                        'value' => $this->getWallet()->getWalletData()['accountName'],
+                    ],
+                ],
+                'backFields' => [
+                    [
+                        'key' => 'id',
+                        'label' => 'ID',
+                        'value' => $this->getWallet()->getWalletData()['accountId'],
+                    ],
+                ],
             ],
             new WalletStyle(
                 // PNG

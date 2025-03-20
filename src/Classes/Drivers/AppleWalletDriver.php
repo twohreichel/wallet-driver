@@ -90,23 +90,8 @@ class AppleWalletDriver implements DriverInterface
             'organizationName' => $this->getWallet()->getIssuerName(),
             'passTypeIdentifier' => $this->account->getApplePassTypeIdentifier(),
             'serialNumber' => $id,
-            'teamIdentifier' => $this->getAccount()->getAppleTeamIdentifier(), // Change this!
-            'card' => [
-                'primaryFields' => [
-                    [
-                        'key' => 'name',
-                        'label' => 'Name',
-                        'value' => $this->getWallet()->getWalletData()['accountName'],
-                    ],
-                ],
-                'backFields' => [
-                    [
-                        'key' => 'id',
-                        'label' => 'ID',
-                        'value' => $this->getWallet()->getWalletData()['accountId'],
-                    ],
-                ],
-            ],
+            'teamIdentifier' => $this->getAccount()->getAppleTeamIdentifier(),
+            $this->getWallet()->getType() => $this->getWallet()->getWalletFields(),
             'backgroundColor' => $this->getWallet()->getStyle()->getHexBackgroundColor(),
             'foregroundColor' => $this->getWallet()->getStyle()->getHexBackgroundColor(),
             'labelColor' => $this->getWallet()->getStyle()->getHexTextColor(),
