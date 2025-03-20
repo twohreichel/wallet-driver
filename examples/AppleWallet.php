@@ -82,6 +82,7 @@ try {
                 // Pixel size: 29 x 29 Pixel.
                 // Aspect ratio: 1:1 (Breite:Höhe).
                 __DIR__ . '/apple_settings/images/icon.png',
+                __DIR__ . '/apple_settings/images/background.png',
                 'rgb(32,110,247)',
                 'rgb(255,255,255)',
             )

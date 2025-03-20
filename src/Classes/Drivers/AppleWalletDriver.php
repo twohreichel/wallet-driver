@@ -125,6 +125,11 @@ class AppleWalletDriver implements DriverInterface
             $this->getPass()->addFile($this->getWallet()->getStyle()->getImageUri(), 'background.png');
         }
 
+        if (!empty($this->getWallet()->getStyle()->getThumbnailUri())) {
+            $this->getPass()->addFile($this->getWallet()->getStyle()->getThumbnailUri(), 'thumbnail.png');
+            $this->getPass()->addFile($this->getWallet()->getStyle()->getThumbnailUri(), 'thumbnail@2x.png');
+        }
+
         // Create and output the pass
         return $this->getPass()->create($this->getAccount()->isDownloadable());
     }

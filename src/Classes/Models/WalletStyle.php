@@ -20,6 +20,11 @@ class WalletStyle
     private string $iconUri = '';
 
     /**
+     * @var string $thumbnailUri contains the thumbnail uri that be displayed on your wallet
+     */
+    private string $thumbnailUri = '';
+
+    /**
      * @var string $hexBackgroundColor contains the background color that be displayed on your wallet
      */
     private string $hexBackgroundColor = '';
@@ -33,6 +38,7 @@ class WalletStyle
      * @param string $logoUri
      * @param string $imageUri
      * @param string $iconUri
+     * @param string $thumbnailUri
      * @param string $hexBackgroundColor
      * @param string $hexTextColor
      */
@@ -40,6 +46,7 @@ class WalletStyle
         string $logoUri,
         string $imageUri,
         string $iconUri,
+        string $thumbnailUri,
         string $hexBackgroundColor,
         string $hexTextColor
     )
@@ -47,6 +54,7 @@ class WalletStyle
         $this->setLogoUri($logoUri);
         $this->setImageUri($imageUri);
         $this->setIconUri($iconUri);
+        $this->setThumbnailUri($thumbnailUri);
         $this->setHexBackgroundColor($hexBackgroundColor);
         $this->setHexTextColor($hexTextColor);
     }
@@ -79,6 +87,16 @@ class WalletStyle
     public function setIconUri(string $iconUri): void
     {
         $this->iconUri = $iconUri;
+    }
+
+    public function getThumbnailUri(): string
+    {
+        return $this->thumbnailUri;
+    }
+
+    public function setThumbnailUri(string $thumbnailUri): void
+    {
+        $this->thumbnailUri = $thumbnailUri;
     }
 
     public function getHexBackgroundColor(): string

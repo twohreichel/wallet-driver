@@ -35,13 +35,15 @@ try {
             '',
             '',
             '',
-            ''
+            '',
+            false
         ),
         new Wallet(
             $issuerId . '.' . $classId . 'Class',
             $issuerId . '.' . $classId . 'Object',
             'Beispiel-Unternehmen',
             'Beispiel-Treueprogramm',
+            'loyalty',
             'UNDER_REVIEW',
             [
                 'accountId' => '123456789',
@@ -52,6 +54,7 @@ try {
                     'alternateText' => ''
                 ]
             ],
+            [],
             new WalletStyle(
                 // PNG
                 // Pixel size: 200 x 200 Pixel.
@@ -62,6 +65,7 @@ try {
                 // Aspect ratio: 2,4:1 (Breite:Höhe).
                 'https://www.drv-tic.de/fileadmin/eTic/background.png',
                 'https://www.drv-tic.de/fileadmin/eTic/icon.png',
+                '',
                 '#4285F4',
                 '#FFFFFF',
             )
