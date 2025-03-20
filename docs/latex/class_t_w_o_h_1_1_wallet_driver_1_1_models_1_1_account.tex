@@ -3,7 +3,7 @@
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_ab394806ca6640be69e52e5a034cfc3bb}{\+\_\+\+\_\+construct}} (string \$issuer\+Id, string \$driver, string \$application\+Name, string \$auth\+Config, string \$scope, string \$private\+Key\+Path, string \$apple\+Certificate\+Path, string \$apple\+Certificate\+Password, string \$apple\+PKPass\+Store\+Path, string \$apple\+Pass\+Type\+Identifier, string \$apple\+Team\+Identifier)
+\mbox{\hyperlink{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_a1432849a33ed77bd722a5f07e8f755e5}{\+\_\+\+\_\+construct}} (string \$issuer\+Id, string \$driver, string \$application\+Name, string \$auth\+Config, string \$scope, string \$private\+Key\+Path, string \$apple\+Certificate\+Path, string \$apple\+Certificate\+Password, string \$apple\+PKPass\+Store\+Path, string \$apple\+Pass\+Type\+Identifier, string \$apple\+Team\+Identifier, bool \$downloadable)
 \item 
 \Hypertarget{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_a97bd3bb6094dd6154b79477f1fd2d47f}\label{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_a97bd3bb6094dd6154b79477f1fd2d47f} 
 {\bfseries get\+Issuer\+Id} ()
@@ -76,15 +76,21 @@
 \item 
 \Hypertarget{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_ada4c1e59d81d8e2bb9ecd9b66ec49cbc}\label{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_ada4c1e59d81d8e2bb9ecd9b66ec49cbc} 
 {\bfseries set\+Apple\+Team\+Identifier} (string \$apple\+Team\+Identifier)
+\item 
+\Hypertarget{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_a75c79401a651cb6d0060d9db058e6f29}\label{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_a75c79401a651cb6d0060d9db058e6f29} 
+{\bfseries is\+Downloadable} ()
+\item 
+\Hypertarget{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_a97f782368968c03e4b7c0307309f5f60}\label{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_a97f782368968c03e4b7c0307309f5f60} 
+{\bfseries set\+Downloadable} (bool \$downloadable)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_ab394806ca6640be69e52e5a034cfc3bb}\index{TWOH\textbackslash{}WalletDriver\textbackslash{}Models\textbackslash{}Account@{TWOH\textbackslash{}WalletDriver\textbackslash{}Models\textbackslash{}Account}!\_\_construct@{\_\_construct}}
+\Hypertarget{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_a1432849a33ed77bd722a5f07e8f755e5}\index{TWOH\textbackslash{}WalletDriver\textbackslash{}Models\textbackslash{}Account@{TWOH\textbackslash{}WalletDriver\textbackslash{}Models\textbackslash{}Account}!\_\_construct@{\_\_construct}}
 \index{\_\_construct@{\_\_construct}!TWOH\textbackslash{}WalletDriver\textbackslash{}Models\textbackslash{}Account@{TWOH\textbackslash{}WalletDriver\textbackslash{}Models\textbackslash{}Account}}
 \doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
-{\footnotesize\ttfamily \label{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_ab394806ca6640be69e52e5a034cfc3bb} 
-TWOH\textbackslash{}\+Wallet\+Driver\textbackslash{}\+Models\textbackslash{}\+Account\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{string}]{\$issuer\+Id}{, }\item[{string}]{\$driver}{, }\item[{string}]{\$application\+Name}{, }\item[{string}]{\$auth\+Config}{, }\item[{string}]{\$scope}{, }\item[{string}]{\$private\+Key\+Path}{, }\item[{string}]{\$apple\+Certificate\+Path}{, }\item[{string}]{\$apple\+Certificate\+Password}{, }\item[{string}]{\$apple\+PKPass\+Store\+Path}{, }\item[{string}]{\$apple\+Pass\+Type\+Identifier}{, }\item[{string}]{\$apple\+Team\+Identifier}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{class_t_w_o_h_1_1_wallet_driver_1_1_models_1_1_account_a1432849a33ed77bd722a5f07e8f755e5} 
+TWOH\textbackslash{}\+Wallet\+Driver\textbackslash{}\+Models\textbackslash{}\+Account\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{string}]{\$issuer\+Id}{, }\item[{string}]{\$driver}{, }\item[{string}]{\$application\+Name}{, }\item[{string}]{\$auth\+Config}{, }\item[{string}]{\$scope}{, }\item[{string}]{\$private\+Key\+Path}{, }\item[{string}]{\$apple\+Certificate\+Path}{, }\item[{string}]{\$apple\+Certificate\+Password}{, }\item[{string}]{\$apple\+PKPass\+Store\+Path}{, }\item[{string}]{\$apple\+Pass\+Type\+Identifier}{, }\item[{string}]{\$apple\+Team\+Identifier}{, }\item[{bool}]{\$downloadable}{}\end{DoxyParamCaption})}
 
 
 \begin{DoxyParams}[1]{Parameters}

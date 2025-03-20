@@ -93,7 +93,7 @@ class AppleWalletDriver implements DriverInterface
             'teamIdentifier' => $this->getAccount()->getAppleTeamIdentifier(),
             $this->getWallet()->getType() => $this->getWallet()->getWalletFields(),
             'backgroundColor' => $this->getWallet()->getStyle()->getHexBackgroundColor(),
-            'foregroundColor' => $this->getWallet()->getStyle()->getHexBackgroundColor(),
+            'foregroundColor' => $this->getWallet()->getStyle()->getHexTextColor(),
             'labelColor' => $this->getWallet()->getStyle()->getHexTextColor(),
             'logoText' => '',
             'relevantDate' => date('Y-m-d\TH:i:sP')
