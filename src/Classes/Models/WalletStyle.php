@@ -86,6 +86,7 @@ class WalletStyle
         $this->setThumbnailUri2x($thumbnailUri2x);
         $this->setStripUri($stripUri);
         $this->setStripUri2x($stripUri2x);
+        $this->setFooterImageUri($footerImageUri);
         $this->setHexBackgroundColor($hexBackgroundColor);
         $this->setHexTextColor($hexTextColor);
     }
