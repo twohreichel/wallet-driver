@@ -108,10 +108,6 @@ class AppleWalletDriver implements DriverInterface
             ];
         }
 
-        if (!empty($this->getWallet()->getStyle()->getFooterImageUri())) {
-            $data['footerImage'] = $this->getWallet()->getStyle()->getFooterImageUri();
-        }
-
         $this->getPass()->setData($data);
 
         // Add files to the pass package
@@ -132,6 +128,11 @@ class AppleWalletDriver implements DriverInterface
         if (!empty($this->getWallet()->getStyle()->getThumbnailUri()) && !empty($this->getWallet()->getStyle()->getThumbnailUri2x())) {
             $this->getPass()->addFile($this->getWallet()->getStyle()->getThumbnailUri(), 'thumbnail.png');
             $this->getPass()->addFile($this->getWallet()->getStyle()->getThumbnailUri2x(), 'thumbnail@2x.png');
+        }
+
+        if (!empty($this->getWallet()->getStyle()->getFooterImageUri()) && !empty($this->getWallet()->getStyle()->getFooterImage2xUri())) {
+            $this->getPass()->addFile($this->getWallet()->getStyle()->getFooterImageUri(), 'footer.png');
+            $this->getPass()->addFile($this->getWallet()->getStyle()->getFooterImage2xUri(), 'footer@2x.png');
         }
 
         if (!empty($this->getWallet()->getStyle()->getStripUri()) && !empty($this->getWallet()->getStyle()->getStripUri2x())) {
