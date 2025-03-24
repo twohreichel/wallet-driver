@@ -108,6 +108,14 @@ class AppleWalletDriver implements DriverInterface
             ];
         }
 
+        if ($this->getWallet()->getType() === 'boardingPass') {
+            $data['transitType'] = 'PKTransitTypeAir';
+        }
+
+        if (!empty($this->getWallet()->getStyle()->getFooterImageUri()) && !empty($this->getWallet()->getStyle()->getFooterImage2xUri())) {
+            $data['footerImage'] = $this->getWallet()->getStyle()->getFooterImageUri();
+        }
+
         $this->getPass()->setData($data);
 
         // Add files to the pass package
