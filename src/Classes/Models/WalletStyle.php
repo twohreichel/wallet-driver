@@ -40,6 +40,11 @@ class WalletStyle
     private string $stripUri2x = '';
 
     /**
+     * @var string $footerImageUri contains the $footerImageUri uri that be displayed on your wallet
+     */
+    private string $footerImageUri = '';
+
+    /**
      * @var string $hexBackgroundColor contains the background color that be displayed on your wallet
      */
     private string $hexBackgroundColor = '';
@@ -57,6 +62,7 @@ class WalletStyle
      * @param string $thumbnailUri2x
      * @param string $stripUri
      * @param string $stripUri2x
+     * @param string $footerImageUri
      * @param string $hexBackgroundColor
      * @param string $hexTextColor
      */
@@ -68,6 +74,7 @@ class WalletStyle
         string $thumbnailUri2x,
         string $stripUri,
         string $stripUri2x,
+        string $footerImageUri,
         string $hexBackgroundColor,
         string $hexTextColor
     )
@@ -151,6 +158,16 @@ class WalletStyle
     public function setStripUri2x(string $stripUri2x): void
     {
         $this->stripUri2x = $stripUri2x;
+    }
+
+    public function getFooterImageUri(): string
+    {
+        return $this->footerImageUri;
+    }
+
+    public function setFooterImageUri(string $footerImageUri): void
+    {
+        $this->footerImageUri = $footerImageUri;
     }
 
     public function getHexBackgroundColor(): string

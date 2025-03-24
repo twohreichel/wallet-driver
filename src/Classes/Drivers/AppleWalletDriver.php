@@ -108,6 +108,10 @@ class AppleWalletDriver implements DriverInterface
             ];
         }
 
+        if (!empty($this->getWallet()->getStyle()->getFooterImageUri())) {
+            $data['footerImage'] = $this->getWallet()->getStyle()->getFooterImageUri();
+        }
+
         $this->getPass()->setData($data);
 
         // Add files to the pass package
