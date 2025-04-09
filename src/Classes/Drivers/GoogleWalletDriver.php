@@ -154,9 +154,20 @@ class GoogleWalletDriver implements DriverInterface
             ];
         }
 
-        return $walletService->loyaltyclass->insert(
-            new LoyaltyClass($settings)
-        );
+        $loyaltyClass = new LoyaltyClass($settings);
+
+        try {
+            // If available, it does not need to be inserted
+            $currentLoyaltyClass = $this->findExistingLoyaltyClass($walletService);
+            if ($currentLoyaltyClass instanceof LoyaltyClass) {
+                return $currentLoyaltyClass;
+            }
+            return $walletService->loyaltyclass->insert($loyaltyClass);
+        } catch (\Google\Service\Exception $e) {
+            $this->error($e->getMessage());
+        }
+
+        return null;
     }
 
     /**
