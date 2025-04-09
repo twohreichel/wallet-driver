@@ -108,6 +108,12 @@ class GoogleWalletDriver implements DriverInterface
      */
     private function createLoyaltyClass(Walletobjects $walletService): ?LoyaltyClass
     {
+        // If available, it does not need to be inserted
+        $currentLoyaltyClass = $this->findExistingLoyaltyClass($walletService);
+        if ($currentLoyaltyClass instanceof LoyaltyClass) {
+            return $currentLoyaltyClass;
+        }
+
         $settings = [
             'id' => $this->getWallet()->getClassId(),
             'issuerName' => $this->getWallet()->getIssuerName(),
@@ -154,15 +160,9 @@ class GoogleWalletDriver implements DriverInterface
             ];
         }
 
-        $loyaltyClass = new LoyaltyClass($settings);
-
-        // If available, it does not need to be inserted
-        $currentLoyaltyClass = $this->findExistingLoyaltyClass($walletService);
-        if ($currentLoyaltyClass instanceof LoyaltyClass) {
-            return $currentLoyaltyClass;
-        }
-
-        return $walletService->loyaltyclass->insert($loyaltyClass);
+        return $walletService->loyaltyclass->insert(
+            new LoyaltyClass($settings)
+        );
     }
 
     /**
@@ -198,6 +198,12 @@ class GoogleWalletDriver implements DriverInterface
      */
     private function createLoyaltyObject(Walletobjects $walletService): ?LoyaltyObject
     {
+        // If available, it does not need to be inserted
+        $currentLoyaltyObject = $this->findExistingLoyaltyObject($walletService);
+        if ($currentLoyaltyObject instanceof LoyaltyObject) {
+            return $currentLoyaltyObject;
+        }
+
         $settings = [
             'id' => $this->getWallet()->getObjectId(),
             'classId' => $this->getWallet()->getClassId(),
@@ -214,17 +220,9 @@ class GoogleWalletDriver implements DriverInterface
             ];
         }
 
-        $loyaltyObject = new LoyaltyObject(
+        return $walletService->loyaltyobject->insert(new LoyaltyObject(
             $settings
-        );
-
-        // If available, it does not need to be inserted
-        $currentLoyaltyObject = $this->findExistingLoyaltyObject($walletService);
-        if ($currentLoyaltyObject instanceof LoyaltyObject) {
-            return $currentLoyaltyObject;
-        }
-
-        return $walletService->loyaltyobject->insert($loyaltyObject);
+        ));
     }
 
     /**
@@ -244,7 +242,7 @@ class GoogleWalletDriver implements DriverInterface
 
         if (count($loyaltyObjects) > 0) {
             foreach ($loyaltyObjects as $loyaltyObject) {
-                if ($loyaltyObject->getId() === $this->getWallet()->getClassId()) {
+                if ($loyaltyObject->getId() === $this->getWallet()->getObjectId()) {
                     return $loyaltyObject;
                 }
             }
