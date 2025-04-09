@@ -103,6 +103,7 @@ class GoogleWalletDriver implements DriverInterface
     /**
      * @param Walletobjects $walletService
      * @return LoyaltyClass|null
+     * @throws \Google\Service\Exception
      */
     private function createLoyaltyClass(Walletobjects $walletService): ?LoyaltyClass
     {
@@ -132,6 +133,19 @@ class GoogleWalletDriver implements DriverInterface
             ];
         }
 
+
+        if (count($this->getWallet()->getWalletFields()) > 0){
+            $settings['textModulesData'] = [];
+            foreach ($this->getWallet()->getWalletFields() as $fields) {
+                foreach ($fields as $field) {
+                    $settings['textModulesData'][] = [
+                        'header' => $field['label'],
+                        'body' => $field['value']
+                    ];
+                }
+            }
+        }
+
         if (!empty($this->getWallet()->getStyle()->getLogoUri())) {
             $settings['logo'] = [
                 'sourceUri' => [
@@ -140,20 +154,9 @@ class GoogleWalletDriver implements DriverInterface
             ];
         }
 
-        $loyaltyClass = new LoyaltyClass($settings);
-
-        try {
-            // If available, it does not need to be inserted
-            $currentLoyaltyClass = $this->findExistingLoyaltyClass($walletService);
-            if ($currentLoyaltyClass instanceof LoyaltyClass) {
-                return $currentLoyaltyClass;
-            }
-            return $walletService->loyaltyclass->insert($loyaltyClass);
-        } catch (\Google\Service\Exception $e) {
-            $this->error($e->getMessage());
-        }
-
-        return null;
+        return $walletService->loyaltyclass->insert(
+            new LoyaltyClass($settings)
+        );
     }
 
     /**
