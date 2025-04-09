@@ -9,10 +9,11 @@ use Google\Exception;
 use Google\Service\Walletobjects;
 use Google\Service\Walletobjects\LoyaltyClass;
 use Google\Service\Walletobjects\LoyaltyObject;
-use InvalidArgumentException;
-use LogicException;
 use TWOH\Logger\Traits\LoggerTrait;
 use TWOH\WalletDriver\Exceptions\JWTTokenException;
+use TWOH\WalletDriver\Exceptions\LoyaltyClassEmptyException;
+use TWOH\WalletDriver\Exceptions\LoyaltyObjectEmptyException;
+use TWOH\WalletDriver\Exceptions\WalletServiceEmptyException;
 use TWOH\WalletDriver\Models\Account;
 use TWOH\WalletDriver\Models\ClientConfig;
 use TWOH\WalletDriver\Models\Connection;
@@ -38,29 +39,34 @@ class GoogleWalletDriver implements DriverInterface
      *
      * @return string
      * @throws Exception
+     * @throws JWTTokenException
+     * @throws LoyaltyClassEmptyException
+     * @throws LoyaltyObjectEmptyException
+     * @throws WalletServiceEmptyException
      */
     public function buildWallet(): string
     {
         $this->connect();
 
         $walletService = $this->createWalletObject();
-
-        $loyaltyClass = $this->createLoyaltyClass($walletService);
-        if (!is_null($loyaltyClass)) {
-            $loyaltyObject = $this->createLoyaltyObject($walletService);
-            if (!is_null($loyaltyObject)) {
-                try {
-                    return (new JWTService())->generateGoogleLinkToAddWalletToDevice(
-                        $this->getAccount(),
-                        $this->getWallet()
-                    );
-                } catch (JWTTokenException $e) {
-                    $this->error($e->getMessage());
-                }
-            }
+        if (empty($this->createWalletObject()->version)) {
+            throw new WalletServiceEmptyException('Wallet object version is empty');
         }
 
-        return '';
+        $loyaltyClass = $this->createLoyaltyClass($walletService);
+        if (is_null($loyaltyClass)) {
+            throw new LoyaltyClassEmptyException('Loyalty class is empty');
+        }
+
+        $loyaltyObject = $this->createLoyaltyObject($walletService);
+        if (is_null($loyaltyObject)) {
+            throw new LoyaltyObjectEmptyException('Loyalty object is empty');
+        }
+
+        return (new JWTService())->generateGoogleLinkToAddWalletToDevice(
+            $this->getAccount(),
+            $this->getWallet()
+        );
     }
 
     /**
@@ -73,12 +79,7 @@ class GoogleWalletDriver implements DriverInterface
         $client = new Client();
         $client->setApplicationName($this->getAccount()->getApplicationName());
         $client->addScope($this->getAccount()->getScope());
-
-        try {
-            $client->setAuthConfig($this->getAccount()->getAuthConfig()); // JSON-Datei
-        } catch (InvalidArgumentException|LogicException $e) {
-            $this->error($e->getMessage());
-        }
+        $client->setAuthConfig($this->getAccount()->getAuthConfig());
 
         // set connection
         $this->getAccount()->setConnection(new Connection(
@@ -133,7 +134,6 @@ class GoogleWalletDriver implements DriverInterface
             ];
         }
 
-
         if (count($this->getWallet()->getWalletFields()) > 0){
             $settings['textModulesData'] = [];
             foreach ($this->getWallet()->getWalletFields() as $fields) {
@@ -156,18 +156,13 @@ class GoogleWalletDriver implements DriverInterface
 
         $loyaltyClass = new LoyaltyClass($settings);
 
-        try {
-            // If available, it does not need to be inserted
-            $currentLoyaltyClass = $this->findExistingLoyaltyClass($walletService);
-            if ($currentLoyaltyClass instanceof LoyaltyClass) {
-                return $currentLoyaltyClass;
-            }
-            return $walletService->loyaltyclass->insert($loyaltyClass);
-        } catch (\Google\Service\Exception $e) {
-            $this->error($e->getMessage());
+        // If available, it does not need to be inserted
+        $currentLoyaltyClass = $this->findExistingLoyaltyClass($walletService);
+        if ($currentLoyaltyClass instanceof LoyaltyClass) {
+            return $currentLoyaltyClass;
         }
 
-        return null;
+        return $walletService->loyaltyclass->insert($loyaltyClass);
     }
 
     /**
@@ -199,6 +194,7 @@ class GoogleWalletDriver implements DriverInterface
     /**
      * @param Walletobjects $walletService
      * @return LoyaltyObject|null
+     * @throws \Google\Service\Exception
      */
     private function createLoyaltyObject(Walletobjects $walletService): ?LoyaltyObject
     {
@@ -222,18 +218,13 @@ class GoogleWalletDriver implements DriverInterface
             $settings
         );
 
-        try {
-            // If available, it does not need to be inserted
-            $currentLoyaltyObject = $this->findExistingLoyaltyObject($walletService);
-            if ($currentLoyaltyObject instanceof LoyaltyObject) {
-                return $currentLoyaltyObject;
-            }
-            return $walletService->loyaltyobject->insert($loyaltyObject);
-        } catch (\Google\Service\Exception $e) {
-            $this->error($e->getMessage());
+        // If available, it does not need to be inserted
+        $currentLoyaltyObject = $this->findExistingLoyaltyObject($walletService);
+        if ($currentLoyaltyObject instanceof LoyaltyObject) {
+            return $currentLoyaltyObject;
         }
 
-        return null;
+        return $walletService->loyaltyobject->insert($loyaltyObject);
     }
 
     /**

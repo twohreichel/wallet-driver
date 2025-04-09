@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 use Dotenv\Dotenv;
 use TWOH\Logger\Utilities\LogDirectoryUtility;
+use TWOH\WalletDriver\Exceptions\LoyaltyClassEmptyException;
+use TWOH\WalletDriver\Exceptions\LoyaltyObjectEmptyException;
 use TWOH\WalletDriver\Exceptions\ValidationFailedException;
+use TWOH\WalletDriver\Exceptions\WalletServiceEmptyException;
 use TWOH\WalletDriver\Models\Account;
 use TWOH\WalletDriver\Models\Wallet;
 use TWOH\WalletDriver\Models\WalletStyle;
@@ -17,12 +20,12 @@ LogDirectoryUtility::$logDirectory = __DIR__ . '/../logs/';
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-try {
-    // unique issuer id
-    $issuerId = '3388000000022876557';
-    $classId = 'eTIC';
+// unique issuer id
+$issuerId = '3388000000022876557';
+$classId = 'eTIC';
 
-    // $generatedGoogleWallet contains a link that allows the end user to add the card directly to their Google Wallet
+// $generatedGoogleWallet contains a link that allows the end user to add the card directly to their Google Wallet
+try {
     $generatedGoogleWalletUrl = (new WalletDriverService(
         new Account(
             $issuerId,
@@ -56,9 +59,9 @@ try {
             ],
             [],
             new WalletStyle(
-                // PNG
-                // Pixel size: 200 x 200 Pixel.
-                // Aspect ratio: 2:1 (Breite:Höhe).
+            // PNG
+            // Pixel size: 200 x 200 Pixel.
+            // Aspect ratio: 2:1 (Breite:Höhe).
                 'https://www.drv-tic.de/fileadmin/eTic/logo.png',
                 // PNG
                 // Pixel size: 1440 x 600 Pixel.
@@ -78,6 +81,6 @@ try {
     ))->__invoke();
 
     var_dump($generatedGoogleWalletUrl);
-} catch (ValidationFailedException|JsonException|ReflectionException $e) {
+} catch (JsonException|ReflectionException|ValidationFailedException $e) {
     var_dump($e->getMessage());
 }
