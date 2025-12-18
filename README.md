@@ -4,6 +4,7 @@
 <img src="/assets/icons/build.svg" alt="Build Status">
 <img src="/assets/icons/version.svg" alt="Latest Stable Version">
 <img src="/assets/icons/license.svg" alt="License">
+<a href="https://github.com/sponsors/twohreichel"><img src="https://img.shields.io/badge/Sponsor-❤-ff69b4?style=flat&logo=github" alt="Sponsor on GitHub"></a>
 </p>
 
 ### About Wallet-Driver
@@ -11,6 +12,22 @@
 ---
 
 This project includes a basic Driver to interact with different Walletsystems like Apple and Google.
+
+### Support This Project
+
+---
+
+If you find this project helpful and would like to support its development, please consider becoming a sponsor! Your support helps maintain and improve this project.
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ff69b4?style=for-the-badge&logo=github)](https://github.com/sponsors/twohreichel)
+
+**Why sponsor?**
+- 🚀 Help maintain and improve the wallet-driver project
+- 🐛 Faster bug fixes and feature implementations
+- 📚 Better documentation and examples
+- 💡 Priority support for sponsored users
+
+Every contribution, no matter the size, makes a difference!
 
 ### Requirements
 
